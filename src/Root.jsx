@@ -3,9 +3,11 @@ import { Outlet } from "react-router-dom";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import Toolbar from "@mui/material/Toolbar";
 import Footer from "components/Footer";
-import Header from "components/Header";
+
 import getDesignTokens from "Styles/Theme";
+import DrawerAppBar from "components/Header";
 
 const Root = () => {
   const [mode, setmyMode] = useState(
@@ -27,7 +29,9 @@ const Root = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <Header toggleBtn={toggleBtn} />
+      <DrawerAppBar toggleBtn={toggleBtn} mode={mode} />
+
+      <Toolbar />
 
       <Outlet />
 

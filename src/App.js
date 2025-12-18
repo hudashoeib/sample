@@ -8,13 +8,15 @@ import NotFound from "pages/NotFound";
 import Home from "pages/Home";
 import Root from "Root";
 import Create from "pages/Create";
+import About from "pages/About";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
       <Route index element={<Home />} />
-      <Route path="*" element={<Home />} />
-      <Route path="dashboard" element={<Create />} />
+
+      <Route path="create" element={<Create />} />
+      <Route path="about" element={<About />} />
       <Route path="*" element={<NotFound />} />
       {/* ... etc. */}
     </Route>
