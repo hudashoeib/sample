@@ -8,6 +8,7 @@ import Footer from "components/Footer";
 
 import getDesignTokens from "Styles/Theme";
 import DrawerAppBar from "components/Header";
+import { Helmet } from "react-helmet-async";
 
 const Root = () => {
   const [mode, setmyMode] = useState(
@@ -26,17 +27,23 @@ const Root = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <>
+      <Helmet>
+        <title> </title>
+        <meta name="description" content="This is the contact page" />
+      </Helmet>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
 
-      <DrawerAppBar toggleBtn={toggleBtn} mode={mode} />
+        <DrawerAppBar toggleBtn={toggleBtn} mode={mode} />
 
-      <Toolbar />
+        <Toolbar />
 
-      <Outlet />
+        <Outlet />
 
-      <Footer />
-    </ThemeProvider>
+        <Footer />
+      </ThemeProvider>
+    </>
   );
 };
 
