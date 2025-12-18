@@ -17,18 +17,23 @@ import Button from "@mui/material/Button";
 import {
   Checkbox,
   FormControlLabel,
+  Menu,
+  MenuItem,
   styled,
   Switch,
   useTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { EditNote, Home, Info, Sunny, Bedtime } from "@mui/icons-material";
+import {
+  EditNote,
+  Home,
+  Info,
+  Sunny,
+  Bedtime,
+  Check,
+} from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 const drawerWidth = 240;
-const navItems = [
-  { text: "Home", icon: <Home />, path: "/" },
-  { text: "About", icon: <Info />, path: "/about" },
-  { text: "Create", icon: <EditNote />, path: "/create" },
-];
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -85,10 +90,27 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 function DrawerAppBar(props) {
+  const { t, i18n } = useTranslation();
   const { window, toggleBtn, mode } = props;
+  // Lang Btn
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  // Lang Btn
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const theme = useTheme();
   const navigate = useNavigate();
+
+  const navItems = [
+    { text: t("home"), icon: <Home />, path: "/" },
+    { text: t("about"), icon: <Info />, path: "/about" },
+    { text: t("create"), icon: <EditNote />, path: "/create" },
+  ];
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -159,6 +181,71 @@ function DrawerAppBar(props) {
             icon={<Bedtime />}
             checkedIcon={<Sunny />}
           />
+          <Button
+            id="basic-button"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+          >
+            {t("lang")}
+          </Button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            slotProps={{
+              list: {
+                "aria-labelledby": "basic-button",
+              },
+            }}
+          >
+            <MenuItem
+              onClick={() => {
+                i18n.changeLanguage("en");
+                handleClose();
+              }}
+              sx={{
+                textAlign: "start",
+                justifyContent: "space-between",
+                fontSize: "13px",
+                padding: "5px,10px",
+              }}
+            >
+              <Typography
+                // @ts-ignore
+                color={theme.palette.bg.textContrast}
+              >
+                English
+              </Typography>
+              {i18n.language === "en" && <Check fontSize="small" />}
+            </MenuItem>
+            <MenuItem
+              dir="auto"
+              sx={{
+                textAlign: "start",
+                justifyContent: "space-between",
+                padding: "0px,10px",
+              }}
+              onClick={() => {
+                i18n.changeLanguage("ar");
+                handleClose();
+              }}
+            >
+              <Typography
+                variant="h6"
+                color={
+                  // @ts-ignore
+                  theme.palette.bg.textContrast
+                }
+              >
+                العربية
+              </Typography>
+              {i18n.language === "ar" && <Check fontSize="small" />}
+            </MenuItem>
+          </Menu>
+
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
               <Button
