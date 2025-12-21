@@ -32,9 +32,10 @@ import {
   Bedtime,
   Check,
   Login,
+  Logout,
 } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
-import SignIn from "pages/SignIn";
+
 const drawerWidth = 240;
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -113,6 +114,7 @@ function DrawerAppBar(props) {
     { text: t("about"), icon: <Info />, path: "/about" },
     { text: t("create"), icon: <EditNote />, path: "/create" },
     { text: t("signin"), icon: <Login />, path: "/signin" },
+    { text: t("signup"), icon: <Login />, path: "/signup" },
   ];
 
   const handleDrawerToggle = () => {
