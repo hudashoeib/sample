@@ -31,8 +31,10 @@ import {
   Sunny,
   Bedtime,
   Check,
+  Login,
 } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+import SignIn from "pages/SignIn";
 const drawerWidth = 240;
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -110,6 +112,7 @@ function DrawerAppBar(props) {
     { text: t("home"), icon: <Home />, path: "/" },
     { text: t("about"), icon: <Info />, path: "/about" },
     { text: t("create"), icon: <EditNote />, path: "/create" },
+    { text: t("signin"), icon: <Login />, path: "/signin" },
   ];
 
   const handleDrawerToggle = () => {
@@ -168,12 +171,13 @@ function DrawerAppBar(props) {
             <MenuIcon />
           </IconButton>
           <Typography
-            variant="h6"
+            variant="h5"
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
             Sample
           </Typography>
+          {/* Theme btn */}
           <Checkbox
             sx={{ display: { xs: "none", sm: "block" } }}
             checked={mode === "dark"}
@@ -181,6 +185,7 @@ function DrawerAppBar(props) {
             icon={<Bedtime />}
             checkedIcon={<Sunny />}
           />
+          {/* Language Btn */}
           <Button
             id="basic-button"
             aria-controls={open ? "basic-menu" : undefined}
@@ -245,7 +250,7 @@ function DrawerAppBar(props) {
               {i18n.language === "ar" && <Check fontSize="small" />}
             </MenuItem>
           </Menu>
-
+          {/* Drawer Navigation items */}
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
               <Button
