@@ -150,8 +150,13 @@ function DrawerAppBar(props) {
   const [user] = useAuthUser(auth);
   const navItems = [
     { text: t("home"), icon: <Home />, path: "/" },
-    { text: t("about"), icon: <Info />, path: "/about" },
-    { text: t("create"), icon: <EditNote />, path: "/create" },
+    // Only show About and Create if logged in
+    ...(user
+      ? [
+          { text: t("about"), icon: <Info />, path: "/about" },
+          { text: t("create"), icon: <EditNote />, path: "/create" },
+        ]
+      : []),
     // Only show Sign In/Sign Up if not logged in
     ...(!user
       ? [
@@ -195,9 +200,11 @@ function DrawerAppBar(props) {
             />
           </ListItemButton>
         </ListItem>
-        <ListItem>
-          <ListItemButton onClick={handleClickOpen2}>SignOut</ListItemButton>
-        </ListItem>
+        {user && (
+          <ListItem>
+            <ListItemButton onClick={handleClickOpen2}>SignOut</ListItemButton>
+          </ListItem>
+        )}
       </List>
     </Box>
   );
@@ -307,14 +314,17 @@ function DrawerAppBar(props) {
                   navigate(item.path);
                 }}
                 key={item.text}
+                // @ts-ignore
                 sx={{ color: theme.palette.bg.textContrast }}
               >
                 {item.text}
               </Button>
             ))}
-            <Button variant="text" onClick={handleClickOpen2}>
-              SignOut
-            </Button>
+            {user && (
+              <Button variant="text" onClick={handleClickOpen2}>
+                SignOut
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
