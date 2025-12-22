@@ -32,6 +32,7 @@ import {
   Bedtime,
   Check,
   Login,
+  Language,
 } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 
@@ -41,7 +42,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 
 import DialogTitle from "@mui/material/DialogTitle";
-import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { auth } from "../firebase";
 import useAuthUser from "./useAuthUser";
@@ -122,7 +122,6 @@ function DrawerAppBar(props) {
   // SignOut Dialog
   const [open2, setOpen2] = React.useState(false);
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleSignOut = async () => {
     try {
@@ -170,8 +169,20 @@ function DrawerAppBar(props) {
     setMobileOpen((prevState) => !prevState);
   };
 
+  // Prevent drawer from closing when opening the language menu
+  const handleLangButtonClick = (event) => {
+    event.stopPropagation();
+    handleClick(event);
+  };
+
+  // Close drawer after selecting a language
+  // ...existing code...
+
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+    <Box
+      onClick={handleDrawerToggle}
+      sx={{ textAlign: "center", backgroundColor: "background.paper" }}
+    >
       <Typography variant="h6" sx={{ my: 2 }}>
         Sample
       </Typography>
@@ -192,11 +203,29 @@ function DrawerAppBar(props) {
             </ListItemButton>
           </ListItem>
         ))}
-        <ListItem>
-          <ListItemButton onClick={toggleBtn}>
+        {/* Language list */}
+        <ListItem disablePadding>
+          <ListItemButton
+            sx={{ textAlign: "center" }}
+            onClick={handleLangButtonClick}
+          >
+            <Language sx={{ mr: "60px" }} />
+            <Typography
+              variant="h6"
+              color="initial"
+              sx={{ textAlign: "center", fontWeight: "400" }}
+            >
+              {t("lang")}
+            </Typography>
+          </ListItemButton>
+        </ListItem>
+        {/* Theme toggle list */}
+        <ListItem disablePadding sx={{ marginTop: "10rem" }}>
+          <ListItemButton sx={{ textAlign: "center" }} onClick={toggleBtn}>
             <FormControlLabel
-              control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
-              label="MUI switch"
+              sx={{ marginRight: "20px" }}
+              control={<MaterialUISwitch defaultChecked />}
+              label="Mode switch"
             />
           </ListItemButton>
         </ListItem>
@@ -215,7 +244,7 @@ function DrawerAppBar(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav">
+      <AppBar component="nav" sx={{ backgroundColor: "background.paper" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -224,12 +253,12 @@ function DrawerAppBar(props) {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <MenuIcon />
+            <MenuIcon sx={{ color: "bg.textContrast" }} />
           </IconButton>
           <Typography
             variant="h5"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ flexGrow: 1, textAlign: { xs: "center", sm: "left" } }}
           >
             Sample
           </Typography>
@@ -248,6 +277,10 @@ function DrawerAppBar(props) {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
             onClick={handleClick}
+            sx={{
+              color: "bg.textContrast",
+              display: { xs: "none", sm: "block" },
+            }}
           >
             {t("lang")}
           </Button>
@@ -350,16 +383,26 @@ function DrawerAppBar(props) {
       </nav>
       {/* SignOut Dialog */}
       <Dialog
-        fullScreen={fullScreen}
         open={open2}
         onClose={handleClose2}
         aria-labelledby="responsive-dialog-title"
+        PaperProps={{
+          sx: {
+            width: "70vw",
+            height: "25vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            margin: "auto",
+          },
+        }}
       >
         <DialogTitle id="responsive-dialog-title">
           {"Are you sure you want to sign out?"}
         </DialogTitle>
 
-        <DialogActions sx={{ justifyContent: "space-around" }}>
+        <DialogActions sx={{ justifyContent: "space-between", width: "210px" }}>
           <Button variant="outlined" autoFocus onClick={handleSignOut}>
             Yes
           </Button>

@@ -12,7 +12,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import ForgotPassword from "./ForgotPassword";
 // import AppTheme from "../shared-theme/AppTheme";
 // import ColorModeSelect from "../shared-theme/ColorModeSelect";
@@ -78,6 +78,7 @@ export default function SignIn(props) {
   const [open, setOpen] = React.useState(false);
   const [formError, setFormError] = React.useState("");
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -163,11 +164,18 @@ export default function SignIn(props) {
     <Box {...props}>
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between">
-        <Card variant="outlined">
+        <Card
+          variant="outlined"
+          sx={{ background: "btn.main", color: "btn.textContrast" }}
+        >
           <Typography
             component="h1"
             variant="h4"
-            sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+            color="secondary"
+            sx={{
+              width: "100%",
+              fontSize: "clamp(2rem, 10vw, 2.15rem)",
+            }}
           >
             Sign in
           </Typography>
@@ -204,6 +212,18 @@ export default function SignIn(props) {
                 color={emailError ? "error" : "primary"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                sx={{
+                  "& .MuiInputBase-root": {
+                    backgroundColor: `${theme.palette.background.paper} !important`,
+                  },
+                  "& input": {
+                    backgroundColor: `${theme.palette.background.paper} !important`,
+                  },
+                  "& input:-webkit-autofill": {
+                    WebkitBoxShadow: `0 0 0 100px ${theme.palette.background.paper} inset !important`,
+                    WebkitTextFillColor: theme.palette.text.primary,
+                  },
+                }}
               />
             </FormControl>
             <FormControl>
@@ -222,14 +242,42 @@ export default function SignIn(props) {
                 color={passwordError ? "error" : "primary"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                sx={{
+                  "& .MuiInputBase-root": {
+                    backgroundColor: `${theme.palette.background.paper} !important`,
+                  },
+                  "& input": {
+                    backgroundColor: `${theme.palette.background.paper} !important`,
+                  },
+                  "& input:-webkit-autofill": {
+                    WebkitBoxShadow: `0 0 0 100px ${theme.palette.background.paper} inset !important`,
+                    WebkitTextFillColor: theme.palette.text.primary,
+                  },
+                }}
               />
             </FormControl>
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={<Checkbox value="remember" color="secondary" />}
               label="Remember me"
+              sx={{
+                "& .MuiFormControlLabel-label": {
+                  color: theme.palette.secondary.main,
+                },
+              }}
             />
             <ForgotPassword open={open} handleClose={handleClose} />
-            <Button type="submit" fullWidth variant="contained">
+            <Button
+              sx={{
+                backgroundColor: theme.palette.primary.main + " !important",
+                color: theme.palette.primary.contrastText + " !important",
+                "&:hover": {
+                  backgroundColor: theme.palette.primary.dark + " !important",
+                },
+              }}
+              type="submit"
+              fullWidth
+              variant="contained"
+            >
               Sign in
             </Button>
             <Link
@@ -237,25 +285,42 @@ export default function SignIn(props) {
               type="button"
               onClick={handleClickOpen}
               variant="body2"
+              color="secondary"
               sx={{ alignSelf: "center" }}
             >
               Forgot your password?
             </Link>
           </Box>
-          <Divider>or</Divider>
+          <Divider color="primary" sx={{ color: "text.secondary" }}>
+            or
+          </Divider>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <Button
               fullWidth
               variant="outlined"
               onClick={handleGoogleSignIn}
+              color="secondary"
               startIcon={<GoogleIcon />}
             >
               Sign in with Google
             </Button>
 
-            <Typography sx={{ textAlign: "center" }}>
+            <Typography sx={{ textAlign: "center", color: "text.primary" }}>
               Don&apos;t have an account?{" "}
-              <Link href="/signup" variant="body2" sx={{ alignSelf: "center" }}>
+              <Link
+                href="/signup"
+                variant="body2"
+                sx={{
+                  alignSelf: "center",
+                  fontWeight: "500",
+                  color: "secondary.main",
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                  textUnderlineOffset: "8px",
+                  fontSize: "1rem",
+                }}
+              >
+                {" "}
                 Sign up
               </Link>
             </Typography>

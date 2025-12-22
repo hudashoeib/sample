@@ -25,7 +25,26 @@ const getDesignTokens = (mode) => ({
           },
           background: {
             paper: "#E5C5C1",
-            defualt: "#E5C5C1",
+            defualt: "#F4E1E0",
+          },
+          text: {
+            primary: "#523e43ff",
+            secondary: "#7F6269",
+          },
+          button: {
+            hover: "#58423fff",
+            pressed: "#5c4947ff",
+            textTransform: "capitalize",
+          },
+          primary: {
+            main: "#886763ff",
+            contrastText: "#F4E1E0",
+            dark: "#58423fff",
+          },
+          secondary: {
+            main: "#58423fff",
+            contrastText: "#0E1627",
+            dark: "#cac2c0ff",
           },
         }
       : {
@@ -49,6 +68,20 @@ const getDesignTokens = (mode) => ({
           background: {
             paper: "#533f44ff",
             defualt: "#533f44ff",
+          },
+          text: {
+            primary: "#F4E1E0",
+            secondary: "#F4E1E0",
+          },
+          primary: {
+            main: "#886763ff",
+            contrastText: "#F4E1E0",
+            dark: "#58423fff",
+          },
+          secondary: {
+            main: "#F4E1E0",
+            contrastText: "#0E1627",
+            dark: "#cac2c0ff",
           },
         }),
   },

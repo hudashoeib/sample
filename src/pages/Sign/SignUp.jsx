@@ -12,7 +12,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 
 import {
   createUserWithEmailAndPassword,
@@ -69,6 +69,7 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function SignUp(props) {
+  const theme = useTheme();
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
@@ -227,6 +228,11 @@ export default function SignUp(props) {
                 helperText={nameErrorMessage}
                 color={nameError ? "error" : "primary"}
                 onChange={(e) => setName(e.target.value)}
+                sx={{
+                  "& .MuiInputBase-root": {
+                    backgroundColor: theme.palette.background.paper,
+                  },
+                }}
               />
             </FormControl>
             <FormControl>
@@ -243,6 +249,11 @@ export default function SignUp(props) {
                 helperText={emailErrorMessage}
                 color={passwordError ? "error" : "primary"}
                 onChange={(e) => setEmail(e.target.value)}
+                sx={{
+                  "& .MuiInputBase-root": {
+                    backgroundColor: theme.palette.background.paper,
+                  },
+                }}
               />
             </FormControl>
             <FormControl>
@@ -260,6 +271,11 @@ export default function SignUp(props) {
                 helperText={passwordErrorMessage}
                 color={passwordError ? "error" : "primary"}
                 onChange={(e) => setPassword(e.target.value)}
+                sx={{
+                  "& .MuiInputBase-root": {
+                    backgroundColor: theme.palette.background.paper,
+                  },
+                }}
               />
             </FormControl>
             <FormControlLabel
