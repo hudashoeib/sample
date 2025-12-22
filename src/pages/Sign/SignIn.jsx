@@ -16,10 +16,14 @@ import { styled } from "@mui/material/styles";
 import ForgotPassword from "./ForgotPassword";
 // import AppTheme from "../shared-theme/AppTheme";
 // import ColorModeSelect from "../shared-theme/ColorModeSelect";
-import { GoogleIcon, FacebookIcon } from "./CustomIcons";
+import { GoogleIcon } from "./CustomIcons";
 // SignIn Auth
 import { auth } from "../../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -131,6 +135,30 @@ export default function SignIn(props) {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    setFormError("");
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      console.log("Google sign in:", result.user);
+      navigate("/");
+    } catch (err) {
+      console.error("Google sign in error:", err.code, err.message);
+      let msg = "Google sign in failed. Please try again.";
+      switch (err.code) {
+        case "auth/popup-closed-by-user":
+          msg = "Google sign in was cancelled.";
+          break;
+        case "auth/account-exists-with-different-credential":
+          msg = "An account already exists with this email.";
+          break;
+        default:
+          break;
+      }
+      setFormError(msg);
+    }
+  };
+
   return (
     <Box {...props}>
       <CssBaseline enableColorScheme />
@@ -219,26 +247,15 @@ export default function SignIn(props) {
             <Button
               fullWidth
               variant="outlined"
-              onClick={() => alert("Sign in with Google")}
+              onClick={handleGoogleSignIn}
               startIcon={<GoogleIcon />}
             >
               Sign in with Google
             </Button>
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert("Sign in with Facebook")}
-              startIcon={<FacebookIcon />}
-            >
-              Sign in with Facebook
-            </Button>
+
             <Typography sx={{ textAlign: "center" }}>
               Don&apos;t have an account?{" "}
-              <Link
-                href="/material-ui/getting-started/templates/sign-in/"
-                variant="body2"
-                sx={{ alignSelf: "center" }}
-              >
+              <Link href="/signup" variant="body2" sx={{ alignSelf: "center" }}>
                 Sign up
               </Link>
             </Typography>

@@ -14,7 +14,16 @@ import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
 
-import { GoogleIcon, FacebookIcon } from "./CustomIcons";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendEmailVerification,
+} from "firebase/auth";
+import { auth } from "../../firebase"; // Adjust the import based on your file structure
+
+import { GoogleIcon } from "./CustomIcons";
 // SignUp auth
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -67,14 +76,17 @@ export default function SignUp(props) {
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState("");
 
-  const validateInputs = () => {
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-    const name = document.getElementById("name");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [error, setError] = React.useState("");
+  const [info, setInfo] = React.useState("");
 
+  const validateInputs = () => {
     let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    // Use state variables directly, not .value
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setEmailError(true);
       setEmailErrorMessage("Please enter a valid email address.");
       isValid = false;
@@ -83,7 +95,7 @@ export default function SignUp(props) {
       setEmailErrorMessage("");
     }
 
-    if (!password.value || password.value.length < 6) {
+    if (!password || password.length < 6) {
       setPasswordError(true);
       setPasswordErrorMessage("Password must be at least 6 characters long.");
       isValid = false;
@@ -92,7 +104,7 @@ export default function SignUp(props) {
       setPasswordErrorMessage("");
     }
 
-    if (!name.value || name.value.length < 1) {
+    if (!name || name.length < 1) {
       setNameError(true);
       setNameErrorMessage("Name is required.");
       isValid = false;
@@ -104,18 +116,65 @@ export default function SignUp(props) {
     return isValid;
   };
 
-  const handleSubmit = (event) => {
-    if (nameError || emailError || passwordError) {
-      event.preventDefault();
+  const handleSubmit = async (eo) => {
+    eo.preventDefault();
+    setError("");
+    setInfo("");
+    // Validate inputs first
+    if (!validateInputs()) {
       return;
     }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get("name"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      // Set displayName after sign up
+      await updateProfile(userCredential.user, { displayName: name });
+      await sendEmailVerification(userCredential.user);
+      setInfo(
+        "We have sent you a verification email. Click  here if you have already verified."
+      );
+      // Optionally: navigate("/");
+    } catch (err) {
+      console.error("Sign up error:", err.code, err.message);
+      switch (err.code) {
+        case "auth/email-already-in-use":
+          setError("This email is already registered.");
+          break;
+        case "auth/invalid-email":
+          setError("Invalid email format.");
+          break;
+        case "auth/weak-password":
+          setError("Password must be at least 6 characters.");
+          break;
+        default:
+          setError("Sign up failed. Please try again.");
+      }
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    setError("");
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      console.log("Google sign up:", result.user);
+      // navigate("/"); // Uncomment to redirect after Google sign up
+    } catch (err) {
+      console.error("Google sign up error:", err.code, err.message);
+      switch (err.code) {
+        case "auth/popup-closed-by-user":
+          setError("Google sign up was cancelled.");
+          break;
+        case "auth/account-exists-with-different-credential":
+          setError("An account already exists with this email.");
+          break;
+        default:
+          setError("Google sign up failed. Please try again.");
+      }
+    }
   };
 
   return (
@@ -131,6 +190,25 @@ export default function SignUp(props) {
           >
             Sign up
           </Typography>
+          {/* Error msg
+           */}
+          {error && (
+            <Typography color="error" sx={{ textAlign: "center", mt: 1 }}>
+              {error}
+            </Typography>
+          )}
+          {/* End of Error msg */}
+          {/* Info msg */}
+          {info && (
+            <Typography color="primary" sx={{ textAlign: "center", mt: 1 }}>
+              We have sent you a verification email.{" "}
+              <Link href="/" variant="body2" sx={{ cursor: "pointer" }}>
+                Click here
+              </Link>{" "}
+              if you have already verified.
+            </Typography>
+          )}
+          {/* End of Info msg */}
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -148,6 +226,7 @@ export default function SignUp(props) {
                 error={nameError}
                 helperText={nameErrorMessage}
                 color={nameError ? "error" : "primary"}
+                onChange={(e) => setName(e.target.value)}
               />
             </FormControl>
             <FormControl>
@@ -163,6 +242,7 @@ export default function SignUp(props) {
                 error={emailError}
                 helperText={emailErrorMessage}
                 color={passwordError ? "error" : "primary"}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </FormControl>
             <FormControl>
@@ -179,18 +259,14 @@ export default function SignUp(props) {
                 error={passwordError}
                 helperText={passwordErrorMessage}
                 color={passwordError ? "error" : "primary"}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </FormControl>
             <FormControlLabel
               control={<Checkbox value="allowExtraEmails" color="primary" />}
               label="I want to receive updates via email."
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={validateInputs}
-            >
+            <Button type="submit" fullWidth variant="contained">
               Sign up
             </Button>
           </Box>
@@ -201,26 +277,15 @@ export default function SignUp(props) {
             <Button
               fullWidth
               variant="outlined"
-              onClick={() => alert("Sign up with Google")}
+              onClick={handleGoogleSignUp}
               startIcon={<GoogleIcon />}
             >
               Sign up with Google
             </Button>
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert("Sign up with Facebook")}
-              startIcon={<FacebookIcon />}
-            >
-              Sign up with Facebook
-            </Button>
+
             <Typography sx={{ textAlign: "center" }}>
               Already have an account?{" "}
-              <Link
-                href="/material-ui/getting-started/templates/sign-in/"
-                variant="body2"
-                sx={{ alignSelf: "center" }}
-              >
+              <Link href="/signin" variant="body2" sx={{ alignSelf: "center" }}>
                 Sign in
               </Link>
             </Typography>

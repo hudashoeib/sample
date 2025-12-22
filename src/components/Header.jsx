@@ -32,9 +32,23 @@ import {
   Bedtime,
   Check,
   Login,
-  Logout,
 } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+
+// SignOut
+
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+
+import DialogTitle from "@mui/material/DialogTitle";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
+import { auth } from "../firebase";
+import useAuthUser from "./useAuthUser";
+
+import { signOut } from "firebase/auth";
+
+// SignOut
 
 const drawerWidth = 240;
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -105,16 +119,46 @@ function DrawerAppBar(props) {
     setAnchorEl(null);
   };
   // Lang Btn
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  // SignOut Dialog
+  const [open2, setOpen2] = React.useState(false);
   const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      setOpen2(false);
+      navigate("/signin");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
+  const handleClickOpen2 = () => {
+    setOpen2(true);
+  };
+
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
+
+  // SignOut Dialog End
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
   const navigate = useNavigate();
 
+  const [user] = useAuthUser(auth);
   const navItems = [
     { text: t("home"), icon: <Home />, path: "/" },
     { text: t("about"), icon: <Info />, path: "/about" },
     { text: t("create"), icon: <EditNote />, path: "/create" },
-    { text: t("signin"), icon: <Login />, path: "/signin" },
-    { text: t("signup"), icon: <Login />, path: "/signup" },
+    // Only show Sign In/Sign Up if not logged in
+    ...(!user
+      ? [
+          { text: t("signin"), icon: <Login />, path: "/signin" },
+          { text: t("signup"), icon: <Login />, path: "/signup" },
+        ]
+      : []),
   ];
 
   const handleDrawerToggle = () => {
@@ -150,6 +194,9 @@ function DrawerAppBar(props) {
               label="MUI switch"
             />
           </ListItemButton>
+        </ListItem>
+        <ListItem>
+          <ListItemButton onClick={handleClickOpen2}>SignOut</ListItemButton>
         </ListItem>
       </List>
     </Box>
@@ -260,12 +307,14 @@ function DrawerAppBar(props) {
                   navigate(item.path);
                 }}
                 key={item.text}
-                // @ts-ignore
                 sx={{ color: theme.palette.bg.textContrast }}
               >
                 {item.text}
               </Button>
             ))}
+            <Button variant="text" onClick={handleClickOpen2}>
+              SignOut
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
@@ -289,6 +338,27 @@ function DrawerAppBar(props) {
           {drawer}
         </Drawer>
       </nav>
+      {/* SignOut Dialog */}
+      <Dialog
+        fullScreen={fullScreen}
+        open={open2}
+        onClose={handleClose2}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {"Are you sure you want to sign out?"}
+        </DialogTitle>
+
+        <DialogActions sx={{ justifyContent: "space-around" }}>
+          <Button variant="outlined" autoFocus onClick={handleSignOut}>
+            Yes
+          </Button>
+          <Button variant="outlined" onClick={handleClose2} autoFocus>
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* SignOut Dialog End */}
     </Box>
   );
 }

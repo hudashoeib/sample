@@ -11,14 +11,28 @@ import Create from "pages/Create";
 import About from "pages/About";
 import SignIn from "pages/Sign/SignIn";
 import SignUp from "pages/Sign/SignUp";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
       <Route index element={<Home />} />
-
-      <Route path="create" element={<Create />} />
-      <Route path="about" element={<About />} />
+      <Route
+        path="create"
+        element={
+          <ProtectedRoute>
+            <Create />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="about"
+        element={
+          <ProtectedRoute>
+            <About />
+          </ProtectedRoute>
+        }
+      />
       <Route path="signin" element={<SignIn />} />
       <Route path="signup" element={<SignUp />} />
       <Route path="*" element={<NotFound />} />
