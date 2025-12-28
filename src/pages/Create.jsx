@@ -1,5 +1,5 @@
-import { Edit } from "@mui/icons-material";
-import { Box, Grid, IconButton, Stack, useTheme } from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
+import { Box, Divider, Grid, IconButton, Stack, useTheme } from "@mui/material";
 import React, { useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import List from "@mui/material/List";
@@ -8,11 +8,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
 
-import CommentIcon from "@mui/icons-material/Comment";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { auth, db } from "../firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import Footer from "components/Footer";
@@ -64,7 +64,20 @@ const Create = () => {
       title: eo.target.value,
     });
   };
-
+  const trashIcon = async (step) => {
+    await updateDoc(doc(db, user.uid, taskId), {
+      details: arrayRemove(step),
+    });
+  };
+  const [newStepDialogue, setNewStepDialogue] = React.useState(false);
+  const [newstep, setnewstep] = React.useState("");
+  const addNewStep = async (eo) => {
+    eo.preventDefault();
+    await updateDoc(doc(db, user.uid, taskId), {
+      details: arrayUnion(newstep),
+    });
+    setnewstep("");
+  };
   React.useEffect(() => {
     if (value?.exists()) {
       // const data = value.data();
@@ -154,48 +167,132 @@ const Create = () => {
                   const labelId = `checkbox-list-label-${step}`;
 
                   return (
-                    <ListItem
-                      key={step}
-                      secondaryAction={
-                        <IconButton edge="end" aria-label="comments">
-                          <CommentIcon />
-                        </IconButton>
-                      }
-                      disablePadding
-                    >
-                      <ListItemButton
-                        role={undefined}
-                        onClick={handleToggle(step)}
-                        dense
+                    <>
+                      <ListItem
+                        className="step-item"
+                        key={step}
+                        secondaryAction={
+                          <IconButton
+                            edge="end"
+                            aria-label="delete"
+                            onClick={() => trashIcon(step)}
+                            sx={{ "&:hover": { color: "red" } }}
+                          >
+                            <Delete />
+                          </IconButton>
+                        }
+                        disablePadding
                       >
-                        <ListItemIcon>
-                          <Checkbox
-                            edge="start"
-                            checked={checked.includes(step)}
-                            tabIndex={-1}
-                            disableRipple
-                            onChange={handleToggle(step)}
+                        <ListItemButton
+                          role={undefined}
+                          onClick={handleToggle(step)}
+                          dense
+                        >
+                          <ListItemIcon>
+                            <Checkbox
+                              edge="start"
+                              checked={checked.includes(step)}
+                              tabIndex={-1}
+                              disableRipple
+                              onChange={handleToggle(step)}
+                            />
+                          </ListItemIcon>
+                          <ListItemText
+                            id={labelId}
+                            primary={step}
+                            style={
+                              checked.includes(step)
+                                ? {
+                                    textDecoration: "line-through",
+                                    color: "#888",
+                                  }
+                                : {}
+                            }
+                            primaryTypographyProps={{ fontSize: "24px" }}
                           />
-                        </ListItemIcon>
-                        <ListItemText
-                          id={labelId}
-                          primary={step}
-                          style={
-                            checked.includes(step)
-                              ? {
-                                  textDecoration: "line-through",
-                                  color: "#888",
-                                }
-                              : {}
-                          }
-                        />
-                      </ListItemButton>
-                    </ListItem>
+                        </ListItemButton>
+                      </ListItem>
+                      <Divider component="li" />
+                    </>
                   );
                 })}
+                {/* New step dialogue */}
+                {newStepDialogue && (
+                  <ListItem
+                    className="new-step-dialogue"
+                    sx={{ width: "100%", bgcolor: "background.paper" }}
+                    disablePadding
+                  >
+                    <ListItemButton dense>
+                      <ListItemIcon>
+                        <Checkbox edge="start" disabled tabIndex={-1} />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={
+                          <input
+                            type="text"
+                            placeholder="New Step"
+                            value={newstep}
+                            onChange={(e) => setnewstep(e.target.value)}
+                            style={{
+                              background: "transparent",
+                              fontSize: "24px",
+                              border: "none",
+                              outline: "none",
+                              color: theme.palette.text.primary,
+                              width: "80%",
+                            }}
+                          />
+                        }
+                      />
+                      <Button
+                        variant="contained"
+                        onClick={addNewStep}
+                        sx={{ ml: 2 }}
+                      >
+                        Add
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        onClick={() => setNewStepDialogue(false)}
+                        sx={{ ml: 1 }}
+                      >
+                        Cancel
+                      </Button>
+                    </ListItemButton>
+                  </ListItem>
+                )}
+                {/*End New step dialogue */}
               </List>
             </Grid>
             {/* End List Section */}
+
+            {/* Action Button */}
+            <Grid
+              size={3}
+              mt={4}
+              mb={4}
+              className="action-section"
+              sx={{ display: "flex", flexDirection: "column" }}
+            >
+              <Button
+                variant="contained"
+                onClick={() => setNewStepDialogue(true)}
+                sx={{ marginBottom: 2 }}
+              >
+                Add Step
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Back to Home
+              </Button>
+            </Grid>
+
+            {/* End Action Button */}
           </Grid>
         </Box>
       </>
