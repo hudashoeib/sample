@@ -28,13 +28,14 @@ const getDesignTokens = (mode) => ({
             defualt: "#F4E1E0",
           },
           text: {
-            primary: "#523e43ff",
+            primary: "#5c4947ff",
             secondary: "#7F6269",
           },
           button: {
             hover: "#58423fff",
             pressed: "#5c4947ff",
             textTransform: "capitalize",
+            textColor: "#F4E1E0",
           },
           primary: {
             main: "#886763ff",
@@ -82,6 +83,12 @@ const getDesignTokens = (mode) => ({
             main: "#F4E1E0",
             contrastText: "#0E1627",
             dark: "#cac2c0ff",
+          },
+          button: {
+            hover: "#58423fff",
+            pressed: "#5c4947ff",
+            textTransform: "capitalize",
+            textColor: "#F4E1E0",
           },
         }),
   },

@@ -8,7 +8,7 @@ import NotFound from "pages/NotFound";
 import Home from "pages/Home";
 import Root from "Root";
 import Create from "pages/Create";
-import About from "pages/About";
+import AllTasks from "pages/AllTasks.jsx";
 import SignIn from "pages/Sign/SignIn";
 import SignUp from "pages/Sign/SignUp";
 import ProtectedRoute from "./ProtectedRoute.jsx";
@@ -26,10 +26,10 @@ const router = createBrowserRouter(
         }
       />
       <Route
-        path="about"
+        path="alltasks"
         element={
           <ProtectedRoute>
-            <About />
+            <AllTasks />
           </ProtectedRoute>
         }
       />

@@ -149,10 +149,10 @@ function DrawerAppBar(props) {
   const [user] = useAuthUser(auth);
   const navItems = [
     { text: t("home"), icon: <Home />, path: "/" },
-    // Only show About and Create if logged in
+    // Only show AllTasks and Create if logged in
     ...(user
       ? [
-          { text: t("about"), icon: <Info />, path: "/about" },
+          { text: t("allTasks"), icon: <Info />, path: "/alltasks" },
           { text: t("create"), icon: <EditNote />, path: "/create" },
         ]
       : []),
@@ -175,8 +175,7 @@ function DrawerAppBar(props) {
     handleClick(event);
   };
 
-  // Close drawer after selecting a language
-  // ...existing code...
+  // Drawer content
 
   const drawer = (
     <Box
@@ -237,6 +236,7 @@ function DrawerAppBar(props) {
       </List>
     </Box>
   );
+  // Drawer content end
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -244,7 +244,13 @@ function DrawerAppBar(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav" sx={{ backgroundColor: "background.paper" }}>
+      <AppBar
+        component="nav"
+        sx={{
+          backgroundColor: "background.paper",
+          textTransform: "capitalize",
+        }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -278,7 +284,7 @@ function DrawerAppBar(props) {
             aria-expanded={open ? "true" : undefined}
             onClick={handleClick}
             sx={{
-              color: "bg.textContrast",
+              color: "text.primary",
               display: { xs: "none", sm: "block" },
             }}
           >

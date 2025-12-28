@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { Edit } from "@mui/icons-material";
+import { Box, Grid, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 
@@ -12,16 +13,32 @@ const Create = () => {
           content="This is the Create page to craete ur default task"
         />
       </Helmet>
-      <Box>
-        <Box component="main" className="container">
-          <Typography variant="body1" color="primary">
-            this is create page
-          </Typography>
-          <Typography variant="body1" color="primary">
-            this is create page Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Veniam ut molestiae quas et optio inventore
-          </Typography>
-        </Box>
+      <Box className="parent-create">
+        <Grid
+          container
+          component="main"
+          className="container "
+          justifyContent={"center"}
+        >
+          {/* Title Section */}
+          <Grid size={{ xs: 6, md: 6 }} className="left-create">
+            <Stack
+              direction={"row"}
+              alignItems={"center"}
+              justifyContent={"space-around"}
+              mt={4}
+            >
+              <Typography variant="h3" className="title-create">
+                Task Titile
+              </Typography>
+              <IconButton>
+                <Edit fontSize="large" />
+              </IconButton>
+            </Stack>
+          </Grid>
+          {/* End Title Section */}
+          <Grid size={{ xs: 8, md: 10 }} className="right-create"></Grid>
+        </Grid>
       </Box>
     </>
   );

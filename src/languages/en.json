@@ -2,8 +2,10 @@
   "lang": "Language",
   "home": "Home",
   "create": "Create",
-  "about": "About",
+  "allTasks": "AllTasks",
   "signin": " Sign In",
   "signup": "Sign Up",
-  "signout": "Sign Out"
+  "signout": "Sign Out",
+  "newest": "Newest",
+  "oldest": "Oldest"
 }
