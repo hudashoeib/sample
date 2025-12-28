@@ -258,7 +258,7 @@ const AllTasks = () => {
                 <Grid
                   className="one-task-card"
                   size={{ xs: 12, sm: 6, lg: 4 }}
-                  onClick={() => navigate("/create")}
+                  onClick={() => navigate(`/create/${data.taskId}`)}
                   style={{ cursor: "pointer" }}
                 >
                   <Card

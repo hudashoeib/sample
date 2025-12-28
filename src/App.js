@@ -26,6 +26,14 @@ const router = createBrowserRouter(
         }
       />
       <Route
+        path="/create/:taskId"
+        element={
+          <ProtectedRoute>
+            <Create />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="alltasks"
         element={
           <ProtectedRoute>
