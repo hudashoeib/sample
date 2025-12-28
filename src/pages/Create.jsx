@@ -1,6 +1,6 @@
 import { Edit } from "@mui/icons-material";
-import { Box, Grid, IconButton, Stack, Typography } from "@mui/material";
-import React from "react";
+import { Box, Grid, IconButton, Stack, useTheme } from "@mui/material";
+import React, { useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -12,40 +12,65 @@ import Checkbox from "@mui/material/Checkbox";
 import CommentIcon from "@mui/icons-material/Comment";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { auth, db } from "../firebase";
-import { doc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import Footer from "components/Footer";
 import Header from "components/Header";
 
 const Create = () => {
-  // List MUI
-  const [checked, setChecked] = React.useState([0]);
+  const theme = useTheme();
+  // List MUI - checked state synced with Firestore
+  const [checked, setChecked] = React.useState([]);
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
+  // Toggle and update Firestore
+  const handleToggle = (step) => async () => {
+    let newChecked;
+    if (checked.includes(step)) {
+      newChecked = checked.filter((s) => s !== step);
     } else {
-      newChecked.splice(currentIndex, 1);
+      newChecked = [...checked, step];
     }
-
     setChecked(newChecked);
+    if (user && taskId) {
+      await updateDoc(doc(db, user.uid, taskId), {
+        checkedSteps: newChecked,
+      });
+    }
   };
   // End List MUI
+  /////////////////////////////////////////////////////
+  // Fetch Data from Firestore
   const navigate = useNavigate();
   let { taskId } = useParams();
   const [user, userLoading] = useAuthState(auth);
   const [value, loading, error] = useDocument(
     user ? doc(db, user.uid, taskId) : null
   );
+  // End Fetch Data from Firestore
+
+  // Sync checked state from Firestore
+  React.useEffect(() => {
+    if (value?.exists()) {
+      const data = value.data();
+      setChecked(data.checkedSteps || []);
+    }
+  }, [value]);
+  // Update Data from Firestore
+
+  const titleRef = useRef(null);
+  const titleEdit = async (eo) => {
+    await updateDoc(doc(db, user.uid, taskId), {
+      title: eo.target.value,
+    });
+  };
+
   React.useEffect(() => {
     if (value?.exists()) {
       // const data = value.data();
     }
   }, [value]);
+
   if (userLoading || loading) return <div>Loading...</div>;
   if (!user) return <div>Please sign in to view this task</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -100,10 +125,23 @@ const Create = () => {
                 justifyContent={"space-around"}
                 mt={4}
               >
-                <Typography variant="h3" className="title-create">
-                  {data.title}
-                </Typography>
-                <IconButton>
+                <input
+                  type="text"
+                  className="title-input"
+                  defaultValue={data.title}
+                  onChange={titleEdit}
+                  ref={titleRef}
+                  style={{
+                    background: "transparent",
+                    fontSize: "40px",
+                    border: "none",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    width: "80%",
+                    color: theme.palette.text.primary,
+                  }}
+                />
+                <IconButton onClick={() => titleRef.current?.focus()}>
                   <Edit fontSize="large" />
                 </IconButton>
               </Stack>
@@ -127,7 +165,7 @@ const Create = () => {
                     >
                       <ListItemButton
                         role={undefined}
-                        onClick={handleToggle(value)}
+                        onClick={handleToggle(step)}
                         dense
                       >
                         <ListItemIcon>
@@ -136,10 +174,21 @@ const Create = () => {
                             checked={checked.includes(step)}
                             tabIndex={-1}
                             disableRipple
-                            inputProps={{ "aria-labelledby": labelId }}
+                            onChange={handleToggle(step)}
                           />
                         </ListItemIcon>
-                        <ListItemText id={labelId} primary={step} />
+                        <ListItemText
+                          id={labelId}
+                          primary={step}
+                          style={
+                            checked.includes(step)
+                              ? {
+                                  textDecoration: "line-through",
+                                  color: "#888",
+                                }
+                              : {}
+                          }
+                        />
                       </ListItemButton>
                     </ListItem>
                   );
