@@ -421,6 +421,7 @@ const AllTasks = () => {
                         right: "8px",
                         left: "8px",
                       }}
+                      color="text.secondary"
                     >
                       <Button
                         variant="outlined"
@@ -428,7 +429,7 @@ const AllTasks = () => {
                         sx={{
                           justifyContent: "flex-start",
                           fontWeight: 600,
-                          color: "primary.dark",
+                          color: "text.secondary",
                           fontSize: "1rem",
                           textTransform: "capitalize",
                         }}
@@ -437,7 +438,7 @@ const AllTasks = () => {
                       </Button>
                       <Typography
                         variant="body1"
-                        color="primary.dark"
+                        color="text.secondary"
                         sx={{ fontWeight: 600 }}
                       >
                         {data.taskTime

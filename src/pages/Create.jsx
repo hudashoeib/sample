@@ -1,5 +1,14 @@
 import { Delete, Edit } from "@mui/icons-material";
-import { Box, Divider, Grid, IconButton, Stack, useTheme } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Grid,
+  IconButton,
+  LinearProgress,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React, { useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import List from "@mui/material/List";
@@ -160,6 +169,44 @@ const Create = () => {
               </Stack>
             </Grid>
             {/* End Title Section */}
+            {/* Progress Section   */}
+            <Grid size={{ xs: 8, md: 10 }} mt={4} className="progress-section">
+              {data.details.length > 0 && (
+                <Box sx={{ width: "100%", textAlign: "center" }}>
+                  {/* Calculate progress percentage */}
+                  {(() => {
+                    const total = data.details.length;
+                    const completed = checked.length;
+                    const percent = Math.round((completed / total) * 100);
+                    return [
+                      <LinearProgress
+                        key="progress-bar"
+                        variant="determinate"
+                        value={percent}
+                        sx={{ height: 10, borderRadius: 5, mb: 1 }}
+                      />,
+                      <Typography
+                        key="progress-label"
+                        variant="body1"
+                        sx={{ mt: 1 }}
+                      >
+                        {percent}% completed
+                      </Typography>,
+                      percent === 100 && (
+                        <Typography
+                          key="progress-congrats"
+                          variant="h6"
+                          sx={{ mt: 2, color: "primary.main" }}
+                        >
+                          🎉 All steps completed! Great job! 🎉
+                        </Typography>
+                      ),
+                    ];
+                  })()}
+                </Box>
+              )}
+            </Grid>
+            {/*  End of Progress Section   */}
             {/* List Section */}
             <Grid size={{ xs: 8, md: 10 }} mt={4} className="list-section">
               <List sx={{ width: "100%", bgcolor: "background.paper" }}>
@@ -289,6 +336,18 @@ const Create = () => {
                 }}
               >
                 Back to Home
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                sx={{ marginTop: 2 }}
+                onClick={async () => {
+                  await updateDoc(doc(db, user.uid, taskId), {
+                    deleted: true,
+                  });
+                }}
+              >
+                Delete Task
               </Button>
             </Grid>
 
