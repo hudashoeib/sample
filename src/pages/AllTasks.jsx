@@ -26,7 +26,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+
 import { serverTimestamp } from "firebase/firestore";
 import { setDoc, doc, collection } from "firebase/firestore";
 import { auth, db } from "../firebase";
@@ -112,7 +112,117 @@ const AllTasks = () => {
       </div>
     );
   if (error) return <div>Error: {error.message}</div>;
-  if (!value || value.empty) return <div>No tasks found.</div>; // This code is very important in deleting the document for detials check delet data file
+  if (!value || value.empty) {
+    return (
+      <Box className="all-Tasks-parent">
+        {/* Fab FORM */}
+        <Tooltip title="Add New Task" placement="left">
+          <Fab
+            color="secondary"
+            sx={{
+              position: "fixed",
+              bottom: "1rem",
+              right: "1rem",
+              height: 70,
+              width: 70,
+            }}
+            onClick={handleClickOpen}
+          >
+            <AddIcon />
+          </Fab>
+        </Tooltip>
+        {/* Form Dialog */}
+        <Dialog open={open} onClose={handleClose}>
+          {/* <DialogTitle>Subscribe</DialogTitle> */}
+          <DialogContent>
+            <DialogContentText>
+              <Typography variant="h5" gutterBottom>
+                Create New Task
+              </Typography>
+              Let's create a new task! Please enter the task details below.
+            </DialogContentText>
+            <Box component="form" id="subscription-form" sx={{ mt: 2 }}>
+              <label htmlFor="title">Title</label>
+              <br />
+              <input
+                type="text"
+                required
+                value={title}
+                onChange={titleEntry}
+                id="title"
+                style={{ marginBottom: "10px", width: "100%" }}
+              ></input>
+              <Stack>
+                <label htmlFor="steps">Steps</label>
+                <input
+                  id="steps"
+                  type="text"
+                  required
+                  value={step}
+                  onChange={stepsEntry}
+                ></input>
+                <Button
+                  type="button"
+                  sx={{ color: theme.palette.primary.contrastText }}
+                  variant="contained"
+                  onClick={addStep}
+                >
+                  Add Step
+                </Button>
+              </Stack>
+              <List
+                sx={{
+                  listStyleType: "circle",
+                  flexDirection: "column",
+                  flexWrap: "wrap",
+                  maxHeight: "100px",
+                  overflowY: "auto",
+                }}
+              >
+                {array.map((item, index) => (
+                  <ListItem sx={{ listStyleType: "circle" }} key={index}>
+                    {item}
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          </DialogContent>
+          <DialogActions
+            sx={{ display: "flex", justifyContent: "space-around" }}
+          >
+            <Button
+              onClick={handleClose}
+              sx={{ color: theme.palette.primary.contrastText }}
+              variant="contained"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleSubmit}
+              type="submit"
+              form="subscription-form"
+              variant="contained"
+              sx={{ color: theme.palette.primary.contrastText }}
+            >
+              Submit
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Grid container justifyContent="center" mt={4}>
+          <Grid container justifyContent="center">
+            <Typography
+              textAlign="center"
+              variant="h4"
+              color="primary"
+              sx={{ marginTop: "10rem" }}
+            >
+              You have no tasks yet. Click the "+" button to add a new task!
+            </Typography>
+          </Grid>
+        </Grid>
+      </Box>
+    );
+  }
 
   if (value)
     return (
@@ -135,9 +245,12 @@ const AllTasks = () => {
         </Tooltip>
         {/* Form Dialog */}
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Subscribe</DialogTitle>
+          {/* <DialogTitle>Subscribe</DialogTitle> */}
           <DialogContent>
             <DialogContentText>
+              <Typography textAlign={"center"} variant="h5" gutterBottom>
+                Create New Task
+              </Typography>
               Let's create a new task! Please enter the task details below.
             </DialogContentText>
             <Box component="form" id="subscription-form" sx={{ mt: 2 }}>
@@ -149,7 +262,7 @@ const AllTasks = () => {
                 value={title}
                 onChange={titleEntry}
                 id="title"
-                style={{ marginBottom: "10px" }}
+                style={{ marginBottom: "10px", width: "100%" }}
               ></input>
               <Stack>
                 <label htmlFor="steps">Steps</label>
@@ -299,6 +412,8 @@ const AllTasks = () => {
                       direction={"row"}
                       spacing={2}
                       justifyContent="space-between"
+                      alignContent={"center"}
+                      alignItems={"center"}
                       padding={1}
                       sx={{
                         position: "absolute",
@@ -308,12 +423,23 @@ const AllTasks = () => {
                       }}
                     >
                       <Button
+                        variant="outlined"
                         size="small"
-                        sx={{ justifyContent: "flex-start" }}
+                        sx={{
+                          justifyContent: "flex-start",
+                          fontWeight: 600,
+                          color: "primary.dark",
+                          fontSize: "1rem",
+                          textTransform: "capitalize",
+                        }}
                       >
                         Edit
                       </Button>
-                      <Typography variant="body1" color="initial">
+                      <Typography
+                        variant="body1"
+                        color="primary.dark"
+                        sx={{ fontWeight: 600 }}
+                      >
                         {data.taskTime
                           ? formatDistanceToNow(
                               data.taskTime.toDate

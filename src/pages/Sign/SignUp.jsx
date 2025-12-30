@@ -203,7 +203,16 @@ export default function SignUp(props) {
           {info && (
             <Typography color="primary" sx={{ textAlign: "center", mt: 1 }}>
               We have sent you a verification email.{" "}
-              <Link href="/" variant="body2" sx={{ cursor: "pointer" }}>
+              <Link
+                href="/"
+                variant="body2"
+                sx={{
+                  cursor: "pointer",
+                  fontWeight: 600,
+                  fontSize: "1.2rem",
+                  textUnderlineOffset: "3px",
+                }}
+              >
                 Click here
               </Link>{" "}
               if you have already verified.
