@@ -21,10 +21,16 @@ import Button from "@mui/material/Button";
 
 import { useDocument } from "react-firebase-hooks/firestore";
 import { auth, db } from "../firebase";
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useParams } from "react-router-dom";
-import Footer from "components/Footer";
+
 import Header from "components/Header";
 
 const Create = () => {
@@ -87,6 +93,10 @@ const Create = () => {
     });
     setnewstep("");
   };
+  const delAllTask = async () => {
+    await deleteDoc(doc(db, user.uid, taskId));
+    // navigate("/");
+  };
   React.useEffect(() => {
     if (value?.exists()) {
       // const data = value.data();
@@ -105,18 +115,20 @@ const Create = () => {
         </Helmet>
         <Header />
         <main>
-          <h1>Task has been Deleted</h1>
-          <button
-            className="task-bye-btn"
+          <Typography textAlign={"center"} variant="h3" mt={3} mb={5}>
+            Task has been Deleted
+          </Typography>
+
+          <Button
+            variant="contained"
             onClick={() => {
               navigate("/");
             }}
+            sx={{ marginRight: "auto", marginLeft: "auto", display: "block" }}
           >
             Back to Home
-          </button>
+          </Button>
         </main>
-
-        <Footer />
       </>
     );
 
@@ -341,11 +353,7 @@ const Create = () => {
                 variant="contained"
                 color="error"
                 sx={{ marginTop: 2 }}
-                onClick={async () => {
-                  await updateDoc(doc(db, user.uid, taskId), {
-                    deleted: true,
-                  });
-                }}
+                onClick={delAllTask}
               >
                 Delete Task
               </Button>

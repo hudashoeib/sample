@@ -352,7 +352,6 @@ const AllTasks = () => {
               <ToggleButton sx={{ width: "50%" }} size="large" value="newest">
                 {t("newest")}
               </ToggleButton>
-
               <ToggleButton sx={{ width: "50%" }} size="large" value="oldest">
                 {t("oldest")}
               </ToggleButton>
