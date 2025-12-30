@@ -25,7 +25,6 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {
-  EditNote,
   Home,
   Info,
   Sunny,
@@ -151,10 +150,7 @@ function DrawerAppBar(props) {
     { text: t("home"), icon: <Home />, path: "/" },
     // Only show AllTasks and Create if logged in
     ...(user
-      ? [
-          { text: t("allTasks"), icon: <Info />, path: "/alltasks" },
-          { text: t("create"), icon: <EditNote />, path: "/create" },
-        ]
+      ? [{ text: t("allTasks"), icon: <Info />, path: "/alltasks" }]
       : []),
     // Only show Sign In/Sign Up if not logged in
     ...(!user
@@ -182,7 +178,7 @@ function DrawerAppBar(props) {
       onClick={handleDrawerToggle}
       sx={{ textAlign: "center", backgroundColor: "background.paper" }}
     >
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography sx={{ my: 2, fontWeight: "900", fontSize: "24px" }}>
         Sample
       </Typography>
       <Divider />
@@ -262,9 +258,13 @@ function DrawerAppBar(props) {
             <MenuIcon sx={{ color: "bg.textContrast" }} />
           </IconButton>
           <Typography
-            variant="h5"
+            variant="h4"
             component="div"
-            sx={{ flexGrow: 1, textAlign: { xs: "center", sm: "left" } }}
+            sx={{
+              flexGrow: 1,
+              textAlign: { xs: "center", sm: "left" },
+              fontWeight: "900",
+            }}
           >
             Sample
           </Typography>
@@ -360,7 +360,11 @@ function DrawerAppBar(props) {
               </Button>
             ))}
             {user && (
-              <Button variant="text" onClick={handleClickOpen2}>
+              <Button
+                variant="text"
+                sx={{ color: theme.palette.text.secondary }}
+                onClick={handleClickOpen2}
+              >
                 SignOut
               </Button>
             )}

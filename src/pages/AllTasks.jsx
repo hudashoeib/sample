@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import {
   Box,
@@ -27,7 +27,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 
-import { serverTimestamp } from "firebase/firestore";
+import { orderBy, query, serverTimestamp } from "firebase/firestore";
 import { setDoc, doc, collection } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -102,9 +102,23 @@ const AllTasks = () => {
     //   setsuccess(false);
     // }, 2000);
   };
-  const q = user ? collection(db, user.uid) : null;
-  const [value, loading, error] = useCollection(q);
   // End Form Dialog state
+  // Filter data and get data from database
+  const [initialData, setinitialData] = useState(
+    user ? query(collection(db, user.uid), orderBy("taskTime", "desc")) : null
+  );
+  const q = user ? initialData : null;
+  const [value, loading, error] = useCollection(q);
+
+  const ascBtn = () => {
+    setinitialData(query(collection(db, user.uid), orderBy("taskTime", "asc")));
+  };
+  const descBtn = () => {
+    setinitialData(
+      query(collection(db, user.uid), orderBy("taskTime", "desc"))
+    );
+  };
+
   if (loading)
     return (
       <div>
@@ -233,10 +247,11 @@ const AllTasks = () => {
             color="secondary"
             sx={{
               position: "fixed",
-              bottom: "1rem",
+              bottom: "4rem",
               right: "1rem",
               height: 70,
               width: 70,
+              color: "background.default",
             }}
             onClick={handleClickOpen}
           >
@@ -343,16 +358,34 @@ const AllTasks = () => {
           >
             <ToggleButtonGroup
               className="border"
-              sx={{ width: "100%", backgroundColor: "primary.main" }}
+              sx={{
+                width: "100%",
+                backgroundColor: "primary.main",
+              }}
               value={alignment}
               exclusive
               onChange={handleChange}
               aria-label="Platform"
             >
-              <ToggleButton sx={{ width: "50%" }} size="large" value="newest">
+              <ToggleButton
+                onClick={descBtn}
+                // @ts-ignore
+                sx={{ width: "50%", color: theme.palette.button.textColor }}
+                size="large"
+                value="newest"
+              >
                 {t("newest")}
               </ToggleButton>
-              <ToggleButton sx={{ width: "50%" }} size="large" value="oldest">
+              <ToggleButton
+                onClick={ascBtn}
+                sx={{
+                  width: "50%",
+                  // @ts-ignore
+                  color: theme.palette.button.textColor,
+                }}
+                size="large"
+                value="oldest"
+              >
                 {t("oldest")}
               </ToggleButton>
             </ToggleButtonGroup>
@@ -455,6 +488,7 @@ const AllTasks = () => {
               );
             })}
           </Grid>
+          <br style={{ clear: "both" }} />
           {/* End of Tasks Cards section */}
         </Grid>
       </Box>

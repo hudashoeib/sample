@@ -39,7 +39,9 @@ const Root = () => {
 
         <Toolbar />
 
-        <Outlet />
+        <div style={{ minHeight: "calc(100vh - 64px)", paddingBottom: "64px" }}>
+          <Outlet />
+        </div>
 
         <Footer />
       </ThemeProvider>

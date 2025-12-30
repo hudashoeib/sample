@@ -328,16 +328,21 @@ const Create = () => {
 
             {/* Action Button */}
             <Grid
-              size={3}
+              size={12}
               mt={4}
               mb={4}
               className="action-section"
-              sx={{ display: "flex", flexDirection: "column" }}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
               <Button
                 variant="contained"
                 onClick={() => setNewStepDialogue(true)}
-                sx={{ marginBottom: 2 }}
+                sx={{ marginBottom: 2, width: "200px" }}
               >
                 Add Step
               </Button>
@@ -346,13 +351,14 @@ const Create = () => {
                 onClick={() => {
                   navigate("/");
                 }}
+                sx={{ marginBottom: 2, width: "200px" }}
               >
                 Back to Home
               </Button>
               <Button
                 variant="contained"
                 color="error"
-                sx={{ marginTop: 2 }}
+                sx={{ marginTop: 2, width: "200px" }}
                 onClick={delAllTask}
               >
                 Delete Task

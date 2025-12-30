@@ -19,6 +19,7 @@ const getDesignTokens = (mode) => ({
             dark: "#58423fff",
             textContrast: "#F4E1E0",
           },
+          
           txt: {
             main: "#7F6269",
             dark: "#0E1627",
