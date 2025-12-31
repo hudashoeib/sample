@@ -341,21 +341,21 @@ const AllTasks = () => {
           justifyContent={"center"}
           container
           mt={4}
-          className="all-Tasks-container border container"
+          className="all-Tasks-container  container"
           spacing={2}
         >
           {/* Titile section */}
           <Grid size={12} mb={5} className="all-Tasks-title">
-            <Typography textAlign={"center"} variant="h2" color="primary">
+            <Typography
+              textAlign={"center"}
+              sx={{ fontSize: { xs: "3rem", md: "4rem" } }}
+              color="primary"
+            >
               Your Tasks <Heart />
             </Typography>
           </Grid>
           {/* options button section */}
-          <Grid
-            size={6}
-            className="all-Tasks-options  border"
-            textAlign={"center"}
-          >
+          <Grid size={6} className="all-Tasks-options  " textAlign={"center"}>
             <ToggleButtonGroup
               className="border"
               sx={{
@@ -395,7 +395,7 @@ const AllTasks = () => {
             container
             size={{ xs: 10, sm: 11 }}
             spacing={4}
-            className="all-Tasks-cards-container border"
+            className="all-Tasks-cards-container "
           >
             {value.docs.map((doc) => {
               const data = doc.data();
@@ -413,12 +413,12 @@ const AllTasks = () => {
                     <CardContent>
                       <Typography
                         gutterBottom
-                        variant="h3"
                         sx={{
                           color: "text.secondary",
 
                           fontWeight: "bold",
                           textAlign: "center",
+                          fontSize: "2rem",
                         }}
                       >
                         {data.title}

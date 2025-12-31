@@ -167,10 +167,10 @@ const Create = () => {
                   ref={titleRef}
                   style={{
                     background: "transparent",
-                    fontSize: "40px",
+
                     border: "none",
                     textAlign: "center",
-                    fontWeight: "bold",
+                    fontWeight: 300,
                     width: "80%",
                     color: theme.palette.text.primary,
                   }}
@@ -358,7 +358,7 @@ const Create = () => {
               <Button
                 variant="contained"
                 color="error"
-                sx={{ marginTop: 2, width: "200px" }}
+                sx={{ marginTop: 2 }}
                 onClick={delAllTask}
               >
                 Delete Task

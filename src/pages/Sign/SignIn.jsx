@@ -305,7 +305,13 @@ export default function SignIn(props) {
               Sign in with Google
             </Button>
 
-            <Typography sx={{ textAlign: "center", color: "text.primary" }}>
+            <Typography
+              sx={{
+                textAlign: "center",
+                color: "text.primary",
+                fontSize: "0.8rem",
+              }}
+            >
               Don&apos;t have an account?{" "}
               <Link
                 href="/signup"
@@ -317,7 +323,7 @@ export default function SignIn(props) {
                   cursor: "pointer",
                   textDecoration: "underline",
                   textUnderlineOffset: "8px",
-                  fontSize: "1rem",
+                  fontSize: "0.8rem",
                 }}
               >
                 {" "}

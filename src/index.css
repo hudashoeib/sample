@@ -1,3 +1,13 @@
+/* Responsive font size for title-input */
+.title-input {
+  font-size: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .title-input {
+    font-size: 3rem;
+  }
+}
 * {
   margin: 0;
   padding: 0;

@@ -308,9 +308,13 @@ export default function SignUp(props) {
               Sign up with Google
             </Button>
 
-            <Typography sx={{ textAlign: "center" }}>
+            <Typography sx={{ textAlign: "center", fontSize: "0.8rem" }}>
               Already have an account?{" "}
-              <Link href="/signin" variant="body2" sx={{ alignSelf: "center" }}>
+              <Link
+                href="/signin"
+                variant="body2"
+                sx={{ alignSelf: "center", fontSize: "0.8rem" }}
+              >
                 Sign in
               </Link>
             </Typography>

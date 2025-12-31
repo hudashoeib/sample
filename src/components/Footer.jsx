@@ -23,11 +23,8 @@
 
 import * as React from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import FolderIcon from "@mui/icons-material/Folder";
-import RestoreIcon from "@mui/icons-material/Restore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+
+import { Typography } from "@mui/material";
 
 export default function LabelBottomNavigation() {
   return (
@@ -42,28 +39,13 @@ export default function LabelBottomNavigation() {
         clear: "both",
         bgcolor: "background.paper",
         marginTop: "2rem",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "64px",
       }}
     >
-      <BottomNavigationAction
-        label="Recents"
-        value="recents"
-        icon={<RestoreIcon />}
-      />
-      <BottomNavigationAction
-        label="Favorites"
-        value="favorites"
-        icon={<FavoriteIcon />}
-      />
-      <BottomNavigationAction
-        label="Nearby"
-        value="nearby"
-        icon={<LocationOnIcon />}
-      />
-      <BottomNavigationAction
-        label="Folder"
-        value="folder"
-        icon={<FolderIcon />}
-      />
+      <Typography> All rights reserved.&copy; HudaShoeib.</Typography>
     </BottomNavigation>
   );
 }

@@ -26,7 +26,11 @@ const Home = () => {
             ) : user ? (
               <div>
                 <h2>Welcome, {user.displayName || user.email}</h2>
-                <Typography variant="body1" color="initial">
+                <Typography
+                  variant="body1"
+                  color="text.primary"
+                  sx={{ mt: 2, fontSize: "0.8rem" }}
+                >
                   this is the main content Lorem ipsum dolor sit amet,
                   consectetur adipisicing elit. Sint temporibus quo cumque et
                   assumenda laboriosam aliquid enim amet voluptatibus esse ipsa
