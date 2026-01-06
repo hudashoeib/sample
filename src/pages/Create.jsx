@@ -1,4 +1,4 @@
-import { Delete, Edit } from "@mui/icons-material";
+import { Check, Delete, Edit, Close } from "@mui/icons-material";
 import {
   Box,
   Divider,
@@ -148,11 +148,11 @@ const Create = () => {
           <Grid
             container
             component="main"
-            className="container "
+            className="container  "
             justifyContent={"center"}
           >
             {/* Title Section */}
-            <Grid size={{ xs: 6, md: 6 }} mt={4} className="title-section">
+            <Grid size={{ xs: 8, md: 6 }} mt={4} className="title-section ">
               <Stack
                 direction={"row"}
                 alignItems={"center"}
@@ -182,7 +182,7 @@ const Create = () => {
             </Grid>
             {/* End Title Section */}
             {/* Progress Section   */}
-            <Grid size={{ xs: 8, md: 10 }} mt={4} className="progress-section">
+            <Grid size={{ xs: 8, md: 10 }} mt={4} className="progress-section ">
               {data.details.length > 0 && (
                 <Box sx={{ width: "100%", textAlign: "center" }}>
                   {/* Calculate progress percentage */}
@@ -220,7 +220,7 @@ const Create = () => {
             </Grid>
             {/*  End of Progress Section   */}
             {/* List Section */}
-            <Grid size={{ xs: 8, md: 10 }} mt={4} className="list-section">
+            <Grid size={{ xs: 10, md: 10 }} mt={4} className="list-section ">
               <List sx={{ width: "100%", bgcolor: "background.paper" }}>
                 {data.details.map((step, index) => {
                   const labelId = `checkbox-list-label-${step}`;
@@ -267,7 +267,9 @@ const Create = () => {
                                   }
                                 : {}
                             }
-                            primaryTypographyProps={{ fontSize: "24px" }}
+                            primaryTypographyProps={{
+                              fontSize: { xs: "16px", md: "24px" },
+                            }}
                           />
                         </ListItemButton>
                       </ListItem>
@@ -283,41 +285,54 @@ const Create = () => {
                     disablePadding
                   >
                     <ListItemButton dense>
-                      <ListItemIcon>
-                        <Checkbox edge="start" disabled tabIndex={-1} />
-                      </ListItemIcon>
                       <ListItemText
                         primary={
-                          <input
-                            type="text"
-                            placeholder="New Step"
-                            value={newstep}
-                            onChange={(e) => setnewstep(e.target.value)}
-                            style={{
-                              background: "transparent",
-                              fontSize: "24px",
-                              border: "none",
-                              outline: "none",
-                              color: theme.palette.text.primary,
-                              width: "80%",
+                          <Box
+                            sx={{
+                              fontSize: { xs: "16px", md: "24px" },
+                              width: "100%",
                             }}
-                          />
+                          >
+                            <input
+                              id="new-step-input"
+                              type="text"
+                              placeholder="New Step"
+                              value={newstep}
+                              onChange={(e) => setnewstep(e.target.value)}
+                              style={{
+                                background: "transparent",
+                                border: "none",
+                                outline: "none",
+                                color: theme.palette.text.primary,
+                                width: "80%",
+                              }}
+                            />
+                          </Box>
                         }
                       />
-                      <Button
+                      {/* <Button
                         variant="contained"
                         onClick={addNewStep}
-                        sx={{ ml: 2 }}
+                        sx={{
+                          ml: 2,
+                          width: { xs: "60px", md: "80px" },
+                          padding: "0px",
+                        }}
                       >
-                        Add
-                      </Button>
-                      <Button
+                        <Check />
+                      </Button> */}
+                      <Check
+                        onClick={addNewStep}
+                        sx={{ marginRight: "20px" }}
+                      />
+                      <Close onClick={() => setNewStepDialogue(false)} />
+                      {/* <Button
                         variant="outlined"
                         onClick={() => setNewStepDialogue(false)}
-                        sx={{ ml: 1 }}
+                        sx={{ ml: 1, width: { xs: "60px", md: "80px" } }}
                       >
-                        Cancel
-                      </Button>
+                        <Close />
+                      </Button> */}
                     </ListItemButton>
                   </ListItem>
                 )}

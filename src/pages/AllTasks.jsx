@@ -135,10 +135,11 @@ const AllTasks = () => {
             color="secondary"
             sx={{
               position: "fixed",
-              bottom: "1rem",
+              bottom: "4.5rem",
               right: "1rem",
               height: 70,
               width: 70,
+              color: "background.default",
             }}
             onClick={handleClickOpen}
           >
@@ -222,16 +223,52 @@ const AllTasks = () => {
             </Button>
           </DialogActions>
         </Dialog>
-        <Grid container justifyContent="center" mt={4}>
-          <Grid container justifyContent="center">
+        <Grid container justifyContent="center" alignItems="center" mt={4}>
+          <Grid
+            size={10}
+            textAlign="center"
+            className="no-tasks-message"
+            mt={5}
+          >
             <Typography
               textAlign="center"
-              variant="h4"
-              color="primary"
-              sx={{ marginTop: "10rem" }}
+              sx={{ fontSize: { xs: "1.5rem", md: "1.8rem" } }}
+              color="bg.textContrast"
             >
-              You have no tasks yet. Click the "+" button to add a new task!
+              Let's make Life Easier!
             </Typography>
+            <Grid
+              size={8}
+              margin="2rem auto"
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
+              <img
+                src="/plans.jpg"
+                alt="plans illustration"
+                loading="lazy"
+                height={"200px"}
+              />
+            </Grid>
+
+            <Grid size={8} alignContent="center" margin="2rem auto">
+              <Button
+                variant="outlined"
+                onClick={handleClickOpen}
+                sx={{
+                  fontSize: {
+                    xs: "0.5rem",
+                    sm: "0.8rem",
+                    md: "1rem",
+                    lg: "1.5rem",
+                  },
+                  fontWeight: 600,
+                  display: "block",
+                  margin: "2rem auto",
+                }}
+              >
+                Create Your First Task
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </Box>
@@ -345,10 +382,10 @@ const AllTasks = () => {
           spacing={2}
         >
           {/* Titile section */}
-          <Grid size={12} mb={5} className="all-Tasks-title">
+          <Grid size={{ xs: 8, md: 12 }} mb={5} className="all-Tasks-title">
             <Typography
               textAlign={"center"}
-              sx={{ fontSize: { xs: "3rem", md: "4rem" } }}
+              sx={{ fontSize: { xs: "2rem", md: "3rem" }, fontWeight: 600 }}
               color="primary"
             >
               Your Tasks <Heart />

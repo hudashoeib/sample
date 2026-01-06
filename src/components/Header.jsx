@@ -179,7 +179,7 @@ function DrawerAppBar(props) {
       sx={{ textAlign: "center", backgroundColor: "background.paper" }}
     >
       <Typography sx={{ my: 2, fontWeight: "900", fontSize: "24px" }}>
-        Sample
+        Taskata
       </Typography>
       <Divider />
       <List>
@@ -266,7 +266,7 @@ function DrawerAppBar(props) {
               fontWeight: "900",
             }}
           >
-            Sample
+            Taskata
           </Typography>
           {/* Theme btn */}
           <Checkbox
