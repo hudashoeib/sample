@@ -413,7 +413,7 @@ function DrawerAppBar(props) {
         }}
       >
         <DialogTitle id="responsive-dialog-title">
-          {"Are you sure you want to sign out?"}
+          {t("signout_confirm")}
         </DialogTitle>
 
         <DialogActions sx={{ justifyContent: "space-between", width: "210px" }}>
@@ -423,7 +423,7 @@ function DrawerAppBar(props) {
             onClick={handleSignOut}
             sx={{ color: "background.default" }}
           >
-            Yes
+            {t("yes")}
           </Button>
 
           <Button
@@ -432,7 +432,7 @@ function DrawerAppBar(props) {
             autoFocus
             sx={{ color: "background.default" }}
           >
-            No
+            {t("no")}
           </Button>
         </DialogActions>
       </Dialog>

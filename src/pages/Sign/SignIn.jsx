@@ -13,7 +13,9 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled, useTheme } from "@mui/material/styles";
+
 import ForgotPassword from "./ForgotPassword";
+import { useTranslation } from "react-i18next";
 // import AppTheme from "../shared-theme/AppTheme";
 // import ColorModeSelect from "../shared-theme/ColorModeSelect";
 import { GoogleIcon } from "./CustomIcons";
@@ -69,6 +71,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function SignIn(props) {
+  const { t } = useTranslation();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [emailError, setEmailError] = React.useState(false);
@@ -91,7 +94,7 @@ export default function SignIn(props) {
     let valid = true;
     if (!emailVal || !/\S+@\S+\.\S+/.test(emailVal)) {
       setEmailError(true);
-      setEmailErrorMessage("Please enter a valid email address.");
+      setEmailErrorMessage(t("signin_email_error"));
       valid = false;
     } else {
       setEmailError(false);
@@ -100,7 +103,7 @@ export default function SignIn(props) {
 
     if (!passwordVal || passwordVal.length < 6) {
       setPasswordError(true);
-      setPasswordErrorMessage("Password must be at least 6 characters long.");
+      setPasswordErrorMessage(t("signin_password_error"));
       valid = false;
     } else {
       setPasswordError(false);
@@ -114,18 +117,18 @@ export default function SignIn(props) {
       navigate("/alltasks");
     } catch (err) {
       console.error("Login error:", err?.code, err?.message);
-      let msg = "Sign in failed. Please try again.";
+      let msg = t("signin_failed");
       switch (err?.code) {
         case "auth/invalid-email":
-          msg = "Invalid email format.";
+          msg = t("signin_invalid_email");
           break;
         case "auth/user-not-found":
         case "auth/wrong-password":
         case "auth/configuration-not-found":
-          msg = "Invalid email or password. Please try again.";
+          msg = t("signin_invalid_credentials");
           break;
         case "auth/user-disabled":
-          msg = "This account has been disabled.";
+          msg = t("signin_disabled");
           break;
         default:
           msg = err?.message || msg;
@@ -145,13 +148,13 @@ export default function SignIn(props) {
       navigate("/alltasks");
     } catch (err) {
       console.error("Google sign in error:", err.code, err.message);
-      let msg = "Google sign in failed. Please try again.";
+      let msg = t("signin_google_failed");
       switch (err.code) {
         case "auth/popup-closed-by-user":
-          msg = "Google sign in was cancelled.";
+          msg = t("signin_google_cancelled");
           break;
         case "auth/account-exists-with-different-credential":
-          msg = "An account already exists with this email.";
+          msg = t("signin_google_exists");
           break;
         default:
           break;
@@ -177,7 +180,7 @@ export default function SignIn(props) {
               fontSize: "clamp(2rem, 10vw, 2.15rem)",
             }}
           >
-            Sign in
+            {t("signin")}
           </Typography>
           {formError ? (
             <Typography color="error" sx={{ textAlign: "center", mt: 1 }}>
@@ -196,14 +199,14 @@ export default function SignIn(props) {
             }}
           >
             <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
+              <FormLabel htmlFor="email">{t("signin_email")}</FormLabel>
               <TextField
                 error={emailError}
                 helperText={emailErrorMessage}
                 id="email"
                 type="email"
                 name="email"
-                placeholder="your@email.com"
+                placeholder={t("signin_email_placeholder")}
                 autoComplete="email"
                 autoFocus
                 required
@@ -227,12 +230,12 @@ export default function SignIn(props) {
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="password">Password</FormLabel>
+              <FormLabel htmlFor="password">{t("signin_password")}</FormLabel>
               <TextField
                 error={passwordError}
                 helperText={passwordErrorMessage}
                 name="password"
-                placeholder="••••••"
+                placeholder={t("signin_password_placeholder")}
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -258,7 +261,7 @@ export default function SignIn(props) {
             </FormControl>
             <FormControlLabel
               control={<Checkbox value="remember" color="secondary" />}
-              label="Remember me"
+              label={t("signin_remember")}
               sx={{
                 "& .MuiFormControlLabel-label": {
                   color: theme.palette.secondary.main,
@@ -278,7 +281,7 @@ export default function SignIn(props) {
               fullWidth
               variant="contained"
             >
-              Sign in
+              {t("signin")}
             </Button>
             <Link
               component="button"
@@ -288,11 +291,11 @@ export default function SignIn(props) {
               color="secondary"
               sx={{ alignSelf: "center" }}
             >
-              Forgot your password?
+              {t("signin_forgot")}
             </Link>
           </Box>
           <Divider color="primary" sx={{ color: "text.secondary" }}>
-            or
+            {t("signin_or")}
           </Divider>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <Button
@@ -302,7 +305,7 @@ export default function SignIn(props) {
               color="secondary"
               startIcon={<GoogleIcon />}
             >
-              Sign in with Google
+              {t("signin_google")}
             </Button>
 
             <Typography
@@ -312,24 +315,23 @@ export default function SignIn(props) {
                 fontSize: "0.8rem",
               }}
             >
-              Don&apos;t have an account?{" "}
-              <Link
-                href="/signup"
-                variant="body2"
-                sx={{
-                  alignSelf: "center",
-                  fontWeight: "500",
-                  color: "secondary.main",
-                  cursor: "pointer",
-                  textDecoration: "underline",
-                  textUnderlineOffset: "8px",
-                  fontSize: "0.8rem",
-                }}
-              >
-                {" "}
-                Sign up
-              </Link>
+              {t("signin_no_account")}
             </Typography>
+            <Link
+              href="/signup"
+              variant="body2"
+              sx={{
+                alignSelf: "center",
+                fontWeight: "500",
+                color: "secondary.main",
+                cursor: "pointer",
+                textDecoration: "underline",
+                textUnderlineOffset: "8px",
+                fontSize: "0.8rem",
+              }}
+            >
+              {t("signup")}
+            </Link>
           </Box>
         </Card>
       </SignInContainer>

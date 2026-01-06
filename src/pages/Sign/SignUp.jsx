@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled, useTheme } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 import {
   createUserWithEmailAndPassword,
@@ -70,6 +71,7 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 
 export default function SignUp(props) {
   const theme = useTheme();
+  const { t } = useTranslation();
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
@@ -85,35 +87,30 @@ export default function SignUp(props) {
 
   const validateInputs = () => {
     let isValid = true;
-
-    // Use state variables directly, not .value
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setEmailError(true);
-      setEmailErrorMessage("Please enter a valid email address.");
+      setEmailErrorMessage(t("signup_email_error"));
       isValid = false;
     } else {
       setEmailError(false);
       setEmailErrorMessage("");
     }
-
     if (!password || password.length < 6) {
       setPasswordError(true);
-      setPasswordErrorMessage("Password must be at least 6 characters long.");
+      setPasswordErrorMessage(t("signup_password_error"));
       isValid = false;
     } else {
       setPasswordError(false);
       setPasswordErrorMessage("");
     }
-
     if (!name || name.length < 1) {
       setNameError(true);
-      setNameErrorMessage("Name is required.");
+      setNameErrorMessage(t("signup_name_error"));
       isValid = false;
     } else {
       setNameError(false);
       setNameErrorMessage("");
     }
-
     return isValid;
   };
 
@@ -134,24 +131,22 @@ export default function SignUp(props) {
       // Set displayName after sign up
       await updateProfile(userCredential.user, { displayName: name });
       await sendEmailVerification(userCredential.user);
-      setInfo(
-        "We have sent you a verification email. Click  here if you have already verified."
-      );
+      setInfo(t("signup_verification_info"));
       // Optionally: navigate("/");
     } catch (err) {
       console.error("Sign up error:", err.code, err.message);
       switch (err.code) {
         case "auth/email-already-in-use":
-          setError("This email is already registered.");
+          setError(t("signup_email_exists"));
           break;
         case "auth/invalid-email":
-          setError("Invalid email format.");
+          setError(t("signup_invalid_email"));
           break;
         case "auth/weak-password":
-          setError("Password must be at least 6 characters.");
+          setError(t("signup_weak_password"));
           break;
         default:
-          setError("Sign up failed. Please try again.");
+          setError(t("signup_failed"));
       }
     }
   };
@@ -167,13 +162,13 @@ export default function SignUp(props) {
       console.error("Google sign up error:", err.code, err.message);
       switch (err.code) {
         case "auth/popup-closed-by-user":
-          setError("Google sign up was cancelled.");
+          setError(t("signup_google_cancelled"));
           break;
         case "auth/account-exists-with-different-credential":
-          setError("An account already exists with this email.");
+          setError(t("signup_google_exists"));
           break;
         default:
-          setError("Google sign up failed. Please try again.");
+          setError(t("signup_google_failed"));
       }
     }
   };
@@ -189,7 +184,7 @@ export default function SignUp(props) {
             variant="h4"
             sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
           >
-            Sign up
+            {t("signup")}
           </Typography>
           {/* Error msg
            */}
@@ -202,20 +197,7 @@ export default function SignUp(props) {
           {/* Info msg */}
           {info && (
             <Typography color="primary" sx={{ textAlign: "center", mt: 1 }}>
-              We have sent you a verification email.{" "}
-              <Link
-                href="/"
-                variant="body2"
-                sx={{
-                  cursor: "pointer",
-                  fontWeight: 600,
-                  fontSize: "1.2rem",
-                  textUnderlineOffset: "3px",
-                }}
-              >
-                Click here
-              </Link>{" "}
-              if you have already verified.
+              {info}
             </Typography>
           )}
           {/* End of Info msg */}
@@ -225,14 +207,14 @@ export default function SignUp(props) {
             sx={{ display: "flex", flexDirection: "column", gap: 2 }}
           >
             <FormControl>
-              <FormLabel htmlFor="name">Full name</FormLabel>
+              <FormLabel htmlFor="name">{t("signup_name")}</FormLabel>
               <TextField
                 autoComplete="name"
                 name="name"
                 required
                 fullWidth
                 id="name"
-                placeholder="Jon Snow"
+                placeholder={t("signup_name_placeholder")}
                 error={nameError}
                 helperText={nameErrorMessage}
                 color={nameError ? "error" : "primary"}
@@ -245,12 +227,12 @@ export default function SignUp(props) {
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
+              <FormLabel htmlFor="email">{t("signup_email")}</FormLabel>
               <TextField
                 required
                 fullWidth
                 id="email"
-                placeholder="your@email.com"
+                placeholder={t("signup_email_placeholder")}
                 name="email"
                 autoComplete="email"
                 variant="outlined"
@@ -266,12 +248,12 @@ export default function SignUp(props) {
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="password">Password</FormLabel>
+              <FormLabel htmlFor="password">{t("signup_password")}</FormLabel>
               <TextField
                 required
                 fullWidth
                 name="password"
-                placeholder="••••••"
+                placeholder={t("signup_password_placeholder")}
                 type="password"
                 id="password"
                 autoComplete="new-password"
@@ -289,14 +271,16 @@ export default function SignUp(props) {
             </FormControl>
             <FormControlLabel
               control={<Checkbox value="allowExtraEmails" color="primary" />}
-              label="I want to receive updates via email."
+              label={t("signup_updates")}
             />
             <Button type="submit" fullWidth variant="contained">
-              Sign up
+              {t("signup")}
             </Button>
           </Box>
           <Divider>
-            <Typography sx={{ color: "text.secondary" }}>or</Typography>
+            <Typography sx={{ color: "text.secondary" }}>
+              {t("signup_or")}
+            </Typography>
           </Divider>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <Button
@@ -305,17 +289,22 @@ export default function SignUp(props) {
               onClick={handleGoogleSignUp}
               startIcon={<GoogleIcon />}
             >
-              Sign up with Google
+              {t("signup_google")}
             </Button>
 
             <Typography sx={{ textAlign: "center", fontSize: "0.8rem" }}>
-              Already have an account?{" "}
+              {t("signup_already_account")}
               <Link
                 href="/signin"
                 variant="body2"
-                sx={{ alignSelf: "center", fontSize: "0.8rem" }}
+                sx={{
+                  alignSelf: "center",
+                  fontSize: "0.8rem",
+                  marginLeft: "4px",
+                  marginRight: "4px",
+                }}
               >
-                Sign in
+                {""} {t("signin")}
               </Link>
             </Typography>
           </Box>
