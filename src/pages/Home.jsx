@@ -4,8 +4,9 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
-import Heart from "Styles/Heart";
+
 import CircularWithValueLabel from "../Styles/Spinner";
+import Heart2 from "Styles/HeartSmall/Heart2";
 
 const Home = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -53,7 +54,9 @@ const Home = () => {
                 >
                   <Typography
                     textAlign="center"
-                    sx={{ fontSize: { xs: "1.5rem", md: "1.8rem" } }}
+                    sx={{
+                      fontSize: { xs: "1.5rem", sm: "2.5rem", md: "2.5rem" },
+                    }}
                     color="bg.textContrast"
                   >
                     Let's make Life Easier!
@@ -71,15 +74,26 @@ const Home = () => {
                     />
                   </Grid>
 
-                  <Grid size={8} alignContent="center" margin="2rem auto">
+                  <Grid
+                    size={11}
+                    alignContent="center"
+                    margin="2rem auto"
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <Typography
-                      variant="body1"
+                      textAlign="center"
                       color="text.primary"
-                      sx={{ mt: 2, fontSize: "0.8rem" }}
+                      sx={{ fontSize: "1rem" }}
                     >
                       Please <Link to="/signin">Sign In</Link> to continue{" "}
-                      <Heart />
                     </Typography>
+                    <div style={{ marginLeft: "8px", fontSize: "20px" }}>
+                      <Heart2 />
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>
