@@ -4,12 +4,14 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
+import { useTranslation } from "react-i18next";
 
 import CircularWithValueLabel from "../Styles/Spinner";
 import Heart2 from "Styles/HeartSmall/Heart2";
 
 const Home = () => {
   const [user, loading, error] = useAuthState(auth);
+  const { t, i18n } = useTranslation();
   return (
     <>
       <Helmet>
@@ -42,6 +44,7 @@ const Home = () => {
             ) : (
               <Grid
                 container
+                className="no-tasks-container"
                 justifyContent="center"
                 alignItems="center"
                 mt={4}
@@ -82,16 +85,43 @@ const Home = () => {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
+                      flexDirection:
+                        i18n.language === "ar" ? "row-reverse" : "row",
                     }}
                   >
                     <Typography
+                      dir="auto"
                       textAlign="center"
                       color="text.primary"
-                      sx={{ fontSize: "1rem" }}
+                      sx={{
+                        fontSize: { xs: "0.7rem", sm: "0.8rem", md: "1rem" },
+                        marginLeft: "5px",
+                        marginRight: "5px",
+                        fontWeight: "600",
+                      }}
                     >
-                      Please <Link to="/signin">Sign In</Link> to continue{" "}
+                      {t("to_continue_please")}
                     </Typography>
-                    <div style={{ marginLeft: "8px", fontSize: "20px" }}>
+                    <Link to="/signin">{t("sign_in")}</Link>
+                    {/* <Typography
+                      dir="auto"
+                      textAlign="center"
+                      color="text.primary"
+                      sx={{
+                        fontSize: "1rem",
+                        marginRight: "5px",
+                        marginLeft: "5px",
+                      }}
+                    >
+                      {t("please")}
+                    </Typography> */}
+                    <div
+                      style={{
+                        marginLeft: "8px",
+                        marginRight: "8px",
+                        fontSize: "20px",
+                      }}
+                    >
                       <Heart2 />
                     </div>
                   </Grid>

@@ -1,4 +1,8 @@
 {
+  "please": "Please",
+  "sign_in": "Sign In",
+  "to_continue_please": "To continue, please",
+  "please_signin_to_continue": "Please <1>Sign In</1> to continue",
   "signin_email_error": "Please enter a valid email address.",
   "signin_password_error": "Password must be at least 6 characters long.",
   "signin_failed": "Sign in failed. Please try again.",

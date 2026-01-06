@@ -230,7 +230,9 @@ function DrawerAppBar(props) {
         </ListItem>
         {user && (
           <ListItem>
-            <ListItemButton onClick={handleClickOpen2}>SignOut</ListItemButton>
+            <ListItemButton onClick={handleClickOpen2}>
+              {t("signout")}
+            </ListItemButton>
           </ListItem>
         )}
       </List>

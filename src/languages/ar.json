@@ -1,4 +1,9 @@
 {
+  "please": "برجاء",
+  "sign_in": "تسجيل الدخول",
+  "to_continue_please": "للمتابعة برجاء",
+  "please_signin_to_continue": "يرجى <1>تسجيل الدخول</1> للمتابعة",
+
   "lang": "اللغة",
   "home": "الرئيسية",
   "signout": "تسجيل الخروج",
