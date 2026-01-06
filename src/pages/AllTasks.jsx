@@ -175,7 +175,13 @@ const AllTasks = () => {
                   required
                   value={step}
                   onChange={stepsEntry}
-                ></input>
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      addStep(e);
+                    }
+                  }}
+                />
                 <Button
                   type="button"
                   sx={{ color: theme.palette.primary.contrastText }}
@@ -223,6 +229,7 @@ const AllTasks = () => {
             </Button>
           </DialogActions>
         </Dialog>
+        {/* No Tasks Message */}
         <Grid container justifyContent="center" alignItems="center" mt={4}>
           <Grid
             size={10}
@@ -230,6 +237,16 @@ const AllTasks = () => {
             className="no-tasks-message"
             mt={5}
           >
+            <Typography
+              textAlign="center"
+              sx={{
+                marginBottom: "1rem",
+                fontSize: { xs: "1.5rem", md: "1.8rem" },
+              }}
+              color="bg.textContrast"
+            >
+              Welcome, {user.displayName || user.email}
+            </Typography>
             <Typography
               textAlign="center"
               sx={{ fontSize: { xs: "1.5rem", md: "1.8rem" } }}
@@ -264,9 +281,10 @@ const AllTasks = () => {
                   fontWeight: 600,
                   display: "block",
                   margin: "2rem auto",
+                  textTransform: "capitalize",
                 }}
               >
-                Create Your First Task
+                Let's Create Your First Task !
               </Button>
             </Grid>
           </Grid>
@@ -327,6 +345,7 @@ const AllTasks = () => {
                   onChange={stepsEntry}
                 ></input>
                 <Button
+                  className="addStepBtn"
                   type="button"
                   sx={{ color: theme.palette.primary.contrastText }}
                   variant="contained"

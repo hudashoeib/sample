@@ -208,7 +208,11 @@ function DrawerAppBar(props) {
             <Typography
               variant="h6"
               color="initial"
-              sx={{ textAlign: "center", fontWeight: "400" }}
+              sx={{
+                color: "bg.textContrast",
+                textAlign: "center",
+                fontWeight: "400",
+              }}
             >
               {t("lang")}
             </Typography>
@@ -413,10 +417,21 @@ function DrawerAppBar(props) {
         </DialogTitle>
 
         <DialogActions sx={{ justifyContent: "space-between", width: "210px" }}>
-          <Button variant="outlined" autoFocus onClick={handleSignOut}>
+          <Button
+            variant="contained"
+            autoFocus
+            onClick={handleSignOut}
+            sx={{ color: "background.default" }}
+          >
             Yes
           </Button>
-          <Button variant="outlined" onClick={handleClose2} autoFocus>
+
+          <Button
+            variant="contained"
+            onClick={handleClose2}
+            autoFocus
+            sx={{ color: "background.default" }}
+          >
             No
           </Button>
         </DialogActions>

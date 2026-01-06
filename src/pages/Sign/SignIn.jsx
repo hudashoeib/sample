@@ -111,7 +111,7 @@ export default function SignIn(props) {
 
     try {
       await signInWithEmailAndPassword(auth, emailVal, passwordVal);
-      navigate("/");
+      navigate("/alltasks");
     } catch (err) {
       console.error("Login error:", err?.code, err?.message);
       let msg = "Sign in failed. Please try again.";
@@ -142,7 +142,7 @@ export default function SignIn(props) {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       console.log("Google sign in:", result.user);
-      navigate("/");
+      navigate("/alltasks");
     } catch (err) {
       console.error("Google sign in error:", err.code, err.message);
       let msg = "Google sign in failed. Please try again.";

@@ -364,7 +364,7 @@ const Create = () => {
               <Button
                 variant="contained"
                 onClick={() => {
-                  navigate("/");
+                  navigate("/alltasks");
                 }}
                 sx={{ marginBottom: 2, width: "200px" }}
               >
