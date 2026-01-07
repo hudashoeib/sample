@@ -25,8 +25,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {
-  Home,
-  Info,
+  EventNote,
   Sunny,
   Bedtime,
   Check,
@@ -147,11 +146,7 @@ function DrawerAppBar(props) {
 
   const [user] = useAuthUser(auth);
   const navItems = [
-    { text: t("home"), icon: <Home />, path: "/" },
-    // Only show AllTasks and Create if logged in
-    ...(user
-      ? [{ text: t("allTasks"), icon: <Info />, path: "/alltasks" }]
-      : []),
+    { text: t("home"), icon: <EventNote />, path: "/" },
     // Only show Sign In/Sign Up if not logged in
     ...(!user
       ? [
@@ -372,7 +367,7 @@ function DrawerAppBar(props) {
                 sx={{ color: theme.palette.text.secondary }}
                 onClick={handleClickOpen2}
               >
-                SignOut
+                {t("signout")}
               </Button>
             )}
           </Box>
@@ -415,7 +410,7 @@ function DrawerAppBar(props) {
           },
         }}
       >
-        <DialogTitle id="responsive-dialog-title">
+        <DialogTitle id="responsive-dialog-title" sx={{ textAlign: "center" }}>
           {t("signout_confirm")}
         </DialogTitle>
 

@@ -71,7 +71,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function SignIn(props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [emailError, setEmailError] = React.useState(false);
@@ -199,7 +199,9 @@ export default function SignIn(props) {
             }}
           >
             <FormControl>
-              <FormLabel htmlFor="email">{t("signin_email")}</FormLabel>
+              <FormLabel htmlFor="email" dir="auto">
+                {t("signin_email")}
+              </FormLabel>
               <TextField
                 error={emailError}
                 helperText={emailErrorMessage}
@@ -230,7 +232,9 @@ export default function SignIn(props) {
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="password">{t("signin_password")}</FormLabel>
+              <FormLabel htmlFor="password" dir="auto">
+                {t("signin_password")}
+              </FormLabel>
               <TextField
                 error={passwordError}
                 helperText={passwordErrorMessage}
@@ -266,7 +270,9 @@ export default function SignIn(props) {
                 "& .MuiFormControlLabel-label": {
                   color: theme.palette.secondary.main,
                 },
+                marginRight: "-8px",
               }}
+              dir="auto"
             />
             <ForgotPassword open={open} handleClose={handleClose} />
             <Button
@@ -308,30 +314,39 @@ export default function SignIn(props) {
               {t("signin_google")}
             </Button>
 
-            <Typography
-              sx={{
-                textAlign: "center",
-                color: "text.primary",
-                fontSize: "0.8rem",
-              }}
+            <Stack
+              flexDirection={i18n.language === "ar" ? "row-reverse" : "row"}
+              justifyContent="center"
+              alignItems="center"
             >
-              {t("signin_no_account")}
-            </Typography>
-            <Link
-              href="/signup"
-              variant="body2"
-              sx={{
-                alignSelf: "center",
-                fontWeight: "500",
-                color: "secondary.main",
-                cursor: "pointer",
-                textDecoration: "underline",
-                textUnderlineOffset: "8px",
-                fontSize: "0.8rem",
-              }}
-            >
-              {t("signup")}
-            </Link>
+              <Typography
+                sx={{
+                  textAlign: "center",
+                  color: "text.primary",
+                  fontSize: "0.8rem",
+                  marginRight: "7px",
+                  marginLeft: "7px",
+                }}
+              >
+                {t("signin_no_account")}
+              </Typography>
+              <Link
+                href="/signup"
+                variant="body2"
+                sx={{
+                  alignSelf: "center",
+
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                  textUnderlineOffset: "8px",
+                  fontSize: "0.8rem",
+                  fontWeight: "700",
+                  color: "bg.textContrast",
+                }}
+              >
+                {t("signup")}
+              </Link>
+            </Stack>
           </Box>
         </Card>
       </SignInContainer>

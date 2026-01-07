@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 
 import CircularWithValueLabel from "../Styles/Spinner";
 import Heart2 from "Styles/HeartSmall/Heart2";
+import AllTasks from "./AllTasks";
 
 const Home = () => {
   const theme = useTheme();
@@ -33,6 +34,9 @@ const Home = () => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  alignContent: "center",
+                  minHeight: "100vh",
+                  width: "100vw",
                 }}
               >
                 <CircularWithValueLabel />
@@ -40,34 +44,29 @@ const Home = () => {
             ) : error ? (
               <p style={{ color: "red" }}>Error: {error.message}</p>
             ) : user ? (
-              <div>
-                <h2>Welcome, {user.displayName || user.email}</h2>
-                <Typography
-                  variant="body1"
-                  color="text.primary"
-                  sx={{ mt: 2, fontSize: "0.8rem" }}
-                >
-                  this is the main content Lorem ipsum dolor sit amet,
-                  consectetur adipisicing elit. Sint temporibus quo cumque et
-                  assumenda laboriosam aliquid enim amet voluptatibus esse ipsa
-                  obcaecati sit, quam architecto placeat nisi consequatur nam
-                  nobis.
-                </Typography>
-              </div>
+              <AllTasks />
             ) : (
+              // <div>
+              //   <h2>Welcome, {user.displayName || user.email}</h2>
+              //   <Typography
+              //     variant="body1"
+              //     color="text.primary"
+              //     sx={{ mt: 2, fontSize: "0.8rem" }}
+              //   >
+              //     this is the main content Lorem ipsum dolor sit amet,
+              //     consectetur adipisicing elit. Sint temporibus quo cumque et
+              //     assumenda laboriosam aliquid enim amet voluptatibus esse ipsa
+              //     obcaecati sit, quam architecto placeat nisi consequatur nam
+              //     nobis.
+              //   </Typography>
+              // </div>
               <Grid
                 container
                 className="no-tasks-container"
                 justifyContent="center"
                 alignItems="center"
-                mt={4}
               >
-                <Grid
-                  size={10}
-                  textAlign="center"
-                  className="no-tasks-message"
-                  mt={5}
-                >
+                <Grid size={10} textAlign="center" className="no-tasks-message">
                   <Typography
                     textAlign="center"
                     sx={{

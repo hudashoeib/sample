@@ -32,6 +32,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useParams } from "react-router-dom";
 
 import Header from "components/Header";
+import Spinner from "Styles/Spinner";
 
 const Create = () => {
   const theme = useTheme();
@@ -103,7 +104,21 @@ const Create = () => {
     }
   }, [value]);
 
-  if (userLoading || loading) return <div>Loading...</div>;
+  if (userLoading || loading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          alignContent: "center",
+          minHeight: "100vh",
+          width: "100vw",
+        }}
+      >
+        <Spinner />
+      </div>
+    );
   if (!user) return <div>Please sign in to view this task</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!value || !value.exists())
@@ -116,9 +131,23 @@ const Create = () => {
         <Header />
         <main
           // @ts-ignore
-          style={{ background: theme.palette.bg.main, height: "100vh" }}
+          style={{
+            // @ts-ignore
+            background: theme.palette.bg.main,
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+          }}
         >
-          <Typography textAlign={"center"} variant="h3" mt={3} mb={5}>
+          <Typography
+            textAlign={"center"}
+            sx={{ fontSize: { xs: "1.5rem", md: "2.5rem" } }}
+            mt={3}
+            mb={5}
+          >
             Task has been Deleted
           </Typography>
 

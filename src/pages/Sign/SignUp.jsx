@@ -207,7 +207,9 @@ export default function SignUp(props) {
             sx={{ display: "flex", flexDirection: "column", gap: 2 }}
           >
             <FormControl>
-              <FormLabel htmlFor="name">{t("signup_name")}</FormLabel>
+              <FormLabel htmlFor="name" dir="auto">
+                {t("signup_name")}
+              </FormLabel>
               <TextField
                 autoComplete="name"
                 name="name"
@@ -227,7 +229,9 @@ export default function SignUp(props) {
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="email">{t("signup_email")}</FormLabel>
+              <FormLabel htmlFor="email" dir="auto">
+                {t("signup_email")}
+              </FormLabel>
               <TextField
                 required
                 fullWidth
@@ -248,7 +252,9 @@ export default function SignUp(props) {
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="password">{t("signup_password")}</FormLabel>
+              <FormLabel htmlFor="password" dir="auto">
+                {t("signup_password")}
+              </FormLabel>
               <TextField
                 required
                 fullWidth
@@ -272,6 +278,8 @@ export default function SignUp(props) {
             <FormControlLabel
               control={<Checkbox value="allowExtraEmails" color="primary" />}
               label={t("signup_updates")}
+              dir="auto"
+              sx={{ marginRight: "-8px" }}
             />
             <Button type="submit" fullWidth variant="contained">
               {t("signup")}
@@ -288,6 +296,7 @@ export default function SignUp(props) {
               variant="outlined"
               onClick={handleGoogleSignUp}
               startIcon={<GoogleIcon />}
+              sx={{ color: "bg.textContrast" }}
             >
               {t("signup_google")}
             </Button>
@@ -302,6 +311,10 @@ export default function SignUp(props) {
                   fontSize: "0.8rem",
                   marginLeft: "4px",
                   marginRight: "4px",
+                  color: "bg.textContrast",
+                  fontWeight: "600",
+                  textDecoration: "underline",
+                  textUnderlineOffset: "2px",
                 }}
               >
                 {""} {t("signin")}

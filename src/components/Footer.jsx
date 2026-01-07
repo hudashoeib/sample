@@ -45,7 +45,7 @@ export default function LabelBottomNavigation() {
         height: "64px",
       }}
     >
-      <Typography> All rights reserved.&copy; HudaShoeib.</Typography>
+      <Typography> All rights reserved &copy; HudaShoeib.</Typography>
     </BottomNavigation>
   );
 }

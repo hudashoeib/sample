@@ -10,7 +10,7 @@ import {
   Tooltip,
   useTheme,
 } from "@mui/material";
-import Heart from "Styles/Heart";
+
 import { useTranslation } from "react-i18next";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -34,6 +34,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { formatDistanceToNow } from "date-fns";
 import Spinner from "Styles/Spinner";
+import Heart2 from "Styles/HeartSmall/Heart2";
 
 // Form Dialoge
 const AllTasks = () => {
@@ -122,9 +123,17 @@ const AllTasks = () => {
 
   if (loading)
     return (
-      <div>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+          width: "100vw",
+        }}
+      >
         <Spinner />
-      </div>
+      </Box>
     );
   if (error) return <div>Error: {error.message}</div>;
   if (!value || value.empty) {
@@ -134,7 +143,7 @@ const AllTasks = () => {
         // @ts-ignore
         sx={{ backgroundColor: theme.palette.bg.main, minHeight: "100dvh" }}
       >
-        <Toolbar />
+        {/* <Toolbar /> */}
         {/* Fab FORM */}
         <Tooltip title="Add New Task" placement="left">
           <Fab
@@ -157,13 +166,18 @@ const AllTasks = () => {
           {/* <DialogTitle>Subscribe</DialogTitle> */}
           <DialogContent>
             <DialogContentText>
-              <Typography variant="h5" gutterBottom>
-                Create New Task
+              <Typography
+                variant="h5"
+                gutterBottom
+                fontWeight={600}
+                textAlign={"center"}
+              >
+                Let's create a new task!
               </Typography>
-              Let's create a new task! Please enter the task details below.
+              Please enter the task details below.
             </DialogContentText>
             <Box component="form" id="subscription-form" sx={{ mt: 2 }}>
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title">Task's Title</label>
               <br />
               <input
                 type="text"
@@ -236,13 +250,8 @@ const AllTasks = () => {
           </DialogActions>
         </Dialog>
         {/* No Tasks Message */}
-        <Grid container justifyContent="center" alignItems="center" mt={4}>
-          <Grid
-            size={10}
-            textAlign="center"
-            className="no-tasks-message"
-            mt={5}
-          >
+        <Grid container justifyContent="center" alignItems="center">
+          <Grid size={10} textAlign="center" className="no-tasks-message">
             <Typography
               textAlign="center"
               sx={{
@@ -277,10 +286,11 @@ const AllTasks = () => {
               <Button
                 variant="outlined"
                 onClick={handleClickOpen}
+                size="large"
                 sx={{
                   fontSize: {
-                    xs: "0.5rem",
-                    sm: "0.8rem",
+                    xs: "0.8rem",
+
                     md: "1rem",
                     lg: "1.5rem",
                   },
@@ -288,6 +298,7 @@ const AllTasks = () => {
                   display: "block",
                   margin: "2rem auto",
                   textTransform: "capitalize",
+                  color: "bg.textContrast",
                 }}
               >
                 Let's Create Your First Task !
@@ -329,13 +340,18 @@ const AllTasks = () => {
           {/* <DialogTitle>Subscribe</DialogTitle> */}
           <DialogContent>
             <DialogContentText>
-              <Typography textAlign={"center"} variant="h5" gutterBottom>
-                Create New Task
+              <Typography
+                textAlign={"center"}
+                variant="h5"
+                gutterBottom
+                fontWeight={600}
+              >
+                Let's create a new task!
               </Typography>
-              Let's create a new task! Please enter the task details below.
+              Please enter the task details below.
             </DialogContentText>
             <Box component="form" id="subscription-form" sx={{ mt: 2 }}>
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title"> Task's Title</label>
               <br />
               <input
                 type="text"
@@ -407,20 +423,39 @@ const AllTasks = () => {
         <Grid
           justifyContent={"center"}
           container
-          mt={4}
           className="all-Tasks-container  container"
           spacing={2}
         >
           {/* Titile section */}
-          <Grid size={{ xs: 8, md: 12 }} mb={5} className="all-Tasks-title">
+          <Grid
+            size={{ xs: 10, md: 12 }}
+            mb={3}
+            className="all-Tasks-title"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <Typography
               textAlign={"center"}
-              sx={{ fontSize: { xs: "2rem", md: "3rem" }, fontWeight: 600 }}
+              sx={{
+                fontSize: { xs: "1.3rem", md: "1.8rem" },
+                fontWeight: 600,
+                mr: 1,
+                ml: 1,
+              }}
               color="primary"
             >
-              Your Tasks <Heart />
+              Welcome, {user.displayName || user.email}
             </Typography>
+            <Heart2 />
           </Grid>
+          {/* <Grid size={{ xs: 10, md: 12 }} className="all-Tasks-subtitle">
+            <Typography dir="auto" variant="body1" color="initial">
+              My Tasks :
+            </Typography>
+          </Grid> */}
           {/* options button section */}
           <Grid size={6} className="all-Tasks-options  " textAlign={"center"}>
             <ToggleButtonGroup
@@ -492,7 +527,11 @@ const AllTasks = () => {
                       </Typography>
                       <Typography
                         variant="h6"
-                        sx={{ fontWeight: "200" }}
+                        sx={{
+                          fontWeight: "400",
+                          textDecoration: "underline",
+                          textUnderlineOffset: "6px",
+                        }}
                         component="div"
                       >
                         steps list :
@@ -538,7 +577,7 @@ const AllTasks = () => {
                       <Typography
                         variant="body1"
                         color="text.secondary"
-                        sx={{ fontWeight: 600 }}
+                        sx={{ fontWeight: 600, fontSize: "11px" }}
                       >
                         {data.taskTime
                           ? formatDistanceToNow(
