@@ -114,7 +114,7 @@ const Create = () => {
           <meta name="description" content="This is the booking page" />
         </Helmet>
         <Header />
-        <main>
+        <main style={{ background: "#424242" }}>
           <Typography textAlign={"center"} variant="h3" mt={3} mb={5}>
             Task has been Deleted
           </Typography>
@@ -144,7 +144,7 @@ const Create = () => {
             content="This is the Create page to craete ur default task"
           />
         </Helmet>
-        <Box className="parent-create">
+        <Box className="parent-create" sx={{ backgroundColor: "#424242" }}>
           <Grid
             container
             component="main"
@@ -182,7 +182,7 @@ const Create = () => {
             </Grid>
             {/* End Title Section */}
             {/* Progress Section   */}
-            <Grid size={{ xs: 8, md: 10 }} mt={4} className="progress-section ">
+            <Grid size={{ xs: 10 }} mt={4} className="progress-section ">
               {data.details.length > 0 && (
                 <Box sx={{ width: "100%", textAlign: "center" }}>
                   {/* Calculate progress percentage */}

@@ -18,7 +18,7 @@ const Home = () => {
         <title> Home page </title>
         <meta name="description" content="This is the Home page" />
       </Helmet>
-      <Box className="parent">
+      <Box className="parent" sx={{backgroundColor:"#424242"}}>
         <Box component="main" className="container">
           <Toolbar />
           <Box>

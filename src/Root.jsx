@@ -39,7 +39,13 @@ const Root = () => {
 
         <Toolbar />
 
-        <div style={{ minHeight: "calc(100vh - 64px)", paddingBottom: "64px" }}>
+        <div
+          style={{
+            minHeight: "calc(100vh - 64px)",
+            paddingBottom: "64px",
+            backgroundColor: "#424242",
+          }}
+        >
           <Outlet />
         </div>
 

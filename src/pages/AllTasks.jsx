@@ -128,7 +128,10 @@ const AllTasks = () => {
   if (error) return <div>Error: {error.message}</div>;
   if (!value || value.empty) {
     return (
-      <Box className="all-Tasks-parent">
+      <Box
+        className="all-Tasks-parent"
+        sx={{ pt: { xs: 7, sm: 8 }, minHeight: "100vh" }}
+      >
         {/* Fab FORM */}
         <Tooltip title="Add New Task" placement="left">
           <Fab
@@ -295,7 +298,10 @@ const AllTasks = () => {
 
   if (value)
     return (
-      <Box className="all-Tasks-parent">
+      <Box
+        className="all-Tasks-parent"
+        sx={{ pt: { xs: 7, sm: 8 }, minHeight: "100vh" }}
+      >
         {/* Fab  FORM */}
         <Tooltip title="Add New Task" placement="left">
           <Fab

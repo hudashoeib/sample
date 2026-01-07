@@ -3,7 +3,14 @@ import React from "react";
 
 const NotFound = () => {
   return (
-    <Box sx={{ mt: 10, textAlign: "center" }}>
+    <Box
+      sx={{
+        mt: 10,
+        textAlign: "center",
+        backgroundColor: "#424242",
+        color: "#ffffff",
+      }}
+    >
       <h1>
         Sorry <i className="bi bi-emoji-frown"></i>
       </h1>
