@@ -114,7 +114,10 @@ const Create = () => {
           <meta name="description" content="This is the booking page" />
         </Helmet>
         <Header />
-        <main style={{ background: "#424242" }}>
+        <main
+          // @ts-ignore
+          style={{ background: theme.palette.bg.main, height: "100vh" }}
+        >
           <Typography textAlign={"center"} variant="h3" mt={3} mb={5}>
             Task has been Deleted
           </Typography>
@@ -144,7 +147,12 @@ const Create = () => {
             content="This is the Create page to craete ur default task"
           />
         </Helmet>
-        <Box className="parent-create" sx={{ backgroundColor: "#424242" }}>
+        <Box
+          // @ts-ignore
+          className="parent-create"
+          // @ts-ignore
+          sx={{ backgroundColor: theme.palette.bg.main }}
+        >
           <Grid
             container
             component="main"

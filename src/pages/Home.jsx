@@ -1,4 +1,4 @@
-import { Box, Grid, Toolbar, Typography } from "@mui/material";
+import { Box, Grid, Toolbar, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -10,6 +10,7 @@ import CircularWithValueLabel from "../Styles/Spinner";
 import Heart2 from "Styles/HeartSmall/Heart2";
 
 const Home = () => {
+  const theme = useTheme();
   const [user, loading, error] = useAuthState(auth);
   const { t, i18n } = useTranslation();
   return (
@@ -18,12 +19,24 @@ const Home = () => {
         <title> Home page </title>
         <meta name="description" content="This is the Home page" />
       </Helmet>
-      <Box className="parent" sx={{backgroundColor:"#424242"}}>
+      <Box
+        className="parent"
+        // @ts-ignore
+        sx={{ backgroundColor: theme.palette.bg.main }}
+      >
         <Box component="main" className="container">
           <Toolbar />
           <Box>
             {loading ? (
-              <CircularWithValueLabel />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <CircularWithValueLabel />
+              </div>
             ) : error ? (
               <p style={{ color: "red" }}>Error: {error.message}</p>
             ) : user ? (

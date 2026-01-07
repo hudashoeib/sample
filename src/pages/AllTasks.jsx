@@ -38,6 +38,7 @@ import Spinner from "Styles/Spinner";
 // Form Dialoge
 const AllTasks = () => {
   const { t } = useTranslation();
+  const Toolbar = require("@mui/material/Toolbar").default;
   const navigate = useNavigate();
   const theme = useTheme();
   // Toggle Button state
@@ -130,8 +131,10 @@ const AllTasks = () => {
     return (
       <Box
         className="all-Tasks-parent"
-        sx={{ pt: { xs: 7, sm: 8 }, minHeight: "100vh" }}
+        // @ts-ignore
+        sx={{ backgroundColor: theme.palette.bg.main, minHeight: "100dvh" }}
       >
+        <Toolbar />
         {/* Fab FORM */}
         <Tooltip title="Add New Task" placement="left">
           <Fab
@@ -300,8 +303,10 @@ const AllTasks = () => {
     return (
       <Box
         className="all-Tasks-parent"
-        sx={{ pt: { xs: 7, sm: 8 }, minHeight: "100vh" }}
+        // @ts-ignore
+        sx={{ backgroundColor: theme.palette.bg.main, minHeight: "100dvh" }}
       >
+        <Toolbar />
         {/* Fab  FORM */}
         <Tooltip title="Add New Task" placement="left">
           <Fab

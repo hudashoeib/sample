@@ -248,6 +248,7 @@ function DrawerAppBar(props) {
       <CssBaseline />
       <AppBar
         component="nav"
+        position="fixed"
         sx={{
           backgroundColor: "background.paper",
           textTransform: "capitalize",

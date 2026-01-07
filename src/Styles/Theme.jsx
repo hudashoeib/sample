@@ -19,7 +19,7 @@ const getDesignTokens = (mode) => ({
             dark: "#58423fff",
             textContrast: "#F4E1E0",
           },
-          
+
           txt: {
             main: "#7F6269",
             dark: "#0E1627",
@@ -52,7 +52,7 @@ const getDesignTokens = (mode) => ({
       : {
           // palette values for dark mode
           bg: {
-            main: "#0E1627",
+            main: "#3c3a3a",
             dark: "#533f44ff",
             light: "#363e5188",
             textContrast: "#F4E1E0",

@@ -8,14 +8,12 @@
     font-size: 3rem;
   }
 }
-* {
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* background-color is set by MUI theme, not here */
 }
 .border {
   border: 2px solid red;
-}
-body {
-  background-color: #424242;
 }
