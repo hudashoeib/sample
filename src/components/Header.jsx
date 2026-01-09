@@ -171,9 +171,11 @@ function DrawerAppBar(props) {
   const drawer = (
     <Box
       onClick={handleDrawerToggle}
-      sx={{ textAlign: "center", backgroundColor: "background.paper" }}
+      sx={{ backgroundColor: "background.paper" }}
     >
-      <Typography sx={{ my: 2, fontWeight: "900", fontSize: "24px" }}>
+      <Typography
+        sx={{ textAlign: "center", my: 2, fontWeight: "900", fontSize: "24px" }}
+      >
         Taskata
       </Typography>
       <Divider />
@@ -181,13 +183,21 @@ function DrawerAppBar(props) {
         {navItems.map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton
-              sx={{ textAlign: "center" }}
               onClick={() => navigate(item.path)}
+              sx={{
+                flexDirection: i18n.language === "ar" ? "row-reverse" : "row",
+                textAlign: i18n.language === "ar" ? "right" : "left",
+              }}
             >
               {item.icon}
               <ListItemText
                 primaryTypographyProps={{ sx: { fontSize: "19px" } }}
-                sx={{ width: "70%" }}
+                dir="auto"
+                sx={{
+                  width: "70%",
+                  marginLeft: i18n.language === "ar" ? "0" : "16px",
+                  marginRight: i18n.language === "ar" ? "16px" : "0",
+                }}
                 primary={item.text}
               />
             </ListItemButton>
@@ -196,18 +206,23 @@ function DrawerAppBar(props) {
         {/* Language list */}
         <ListItem disablePadding>
           <ListItemButton
-            sx={{ textAlign: "center" }}
+            sx={{
+              flexDirection: i18n.language === "ar" ? "row-reverse" : "row",
+              textAlign: i18n.language === "ar" ? "right" : "left",
+            }}
             onClick={handleLangButtonClick}
           >
-            <Language sx={{ mr: "60px" }} />
+            <Language />
             <Typography
               variant="h6"
               color="initial"
               sx={{
                 color: "bg.textContrast",
-                textAlign: "center",
+                marginLeft: "16px",
+                marginRight: "16px",
                 fontWeight: "400",
               }}
+              dir="auto"
             >
               {t("lang")}
             </Typography>
@@ -249,11 +264,13 @@ function DrawerAppBar(props) {
           textTransform: "capitalize",
         }}
       >
-        <Toolbar>
+        <Toolbar
+          sx={{ flexDirection: i18n.language === "ar" ? "row-reverse" : "row" }}
+        >
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            edge="start"
+            edge={i18n.language === "ar" ? "end" : "start"}
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
@@ -379,6 +396,7 @@ function DrawerAppBar(props) {
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
+          anchor={i18n.language === "ar" ? "right" : "left"}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}

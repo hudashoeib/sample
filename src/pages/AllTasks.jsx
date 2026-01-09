@@ -510,7 +510,11 @@ const AllTasks = () => {
                 >
                   <Card
                     variant="outlined"
-                    sx={{ height: "20rem", position: "relative" }}
+                    sx={{
+                      height: "fit-content",
+                      position: "relative",
+                      padding: "15px",
+                    }}
                   >
                     <CardContent>
                       <Typography
@@ -536,7 +540,7 @@ const AllTasks = () => {
                       >
                         steps list :
                       </Typography>
-                      <List>
+                      <List sx={{ marginBottom: "50px" }}>
                         {data.details.map((step, index) => (
                           <ListItem key={index}>
                             <Typography variant="body2" color="text.secondary">
