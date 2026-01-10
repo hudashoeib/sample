@@ -272,7 +272,7 @@ function DrawerAppBar(props) {
             aria-label="open drawer"
             edge={i18n.language === "ar" ? "end" : "start"}
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ display: { sm: "none" } }}
           >
             <MenuIcon sx={{ color: "bg.textContrast" }} />
           </IconButton>
@@ -310,10 +310,19 @@ function DrawerAppBar(props) {
             {t("lang")}
           </Button>
           <Menu
+            className="lang-menu"
             id="basic-menu"
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: i18n.language === "ar" ? "right" : "left",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: i18n.language === "ar" ? "right" : "left",
+            }}
             slotProps={{
               list: {
                 "aria-labelledby": "basic-button",
