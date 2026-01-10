@@ -93,6 +93,9 @@ const getDesignTokens = (mode) => ({
           },
         }),
   },
+  typography: {
+    fontFamily: "'IBM Plex Arabic', 'IBM Plex Sans', sans-serif",
+  },
 });
 
 export default getDesignTokens;
