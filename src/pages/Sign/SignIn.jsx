@@ -179,6 +179,7 @@ export default function SignIn(props) {
               width: "100%",
               fontSize: "clamp(2rem, 10vw, 2.15rem)",
             }}
+            textAlign="center"
           >
             {t("signin")}
           </Typography>

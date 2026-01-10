@@ -57,8 +57,13 @@
   "yes": "نعم",
   "no": "لا",
   "edit": "تعديل",
-  "steps": "  الخطوات",
-  "add_step": "إضافة خطوة"
+  "steps": "  الخطوات :",
+  "add_step": "إضافة خطوة",
+  "lets_create_new_task": "خطة جديده ليوم جديد",
 
-  
+  "cancel": "إلغاء",
+  "submit": "إرسال",
+
+  "please_enter_task_details": " :اضف التفاصيل هنا",
+  "task-title": "  عنوان المهمة :"
 }

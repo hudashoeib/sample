@@ -57,5 +57,11 @@
   "no": "No",
   "signup_verification_resend": "Resend verification email",
   "edit": "Edit",
-  "steps": "Steps"
+  "steps": "Steps",
+  "lets_create_new_task": "Let's create a new task!",
+  "please_enter_task_details": "Please enter the task details below.",
+  "add_step": "Add Step",
+  "cancel": "Cancel",
+  "submit": "Submit",
+  "task-title": "Task Title"
 }

@@ -147,9 +147,10 @@ const AllTasks = () => {
       >
         {/* <Toolbar /> */}
         {/* Fab FORM */}
-        <Tooltip title="Add New Task" placement="left">
+        {/* <Tooltip title="Add New Task" placement="left">
           <Fab
             color="secondary"
+            className="fab-animate"
             sx={{
               position: "fixed",
               bottom: "4.5rem",
@@ -160,57 +161,75 @@ const AllTasks = () => {
             }}
             onClick={handleClickOpen}
           >
-            <AddIcon />
+            <AddIcon sx={{ fontSize: 48 }} />
           </Fab>
-        </Tooltip>
+        </Tooltip> */}
         {/* Form Dialog */}
         <Dialog open={open} onClose={handleClose}>
           {/* <DialogTitle>Subscribe</DialogTitle> */}
           <DialogContent>
             <DialogContentText>
               <Typography
+                textAlign={"center"}
                 variant="h5"
                 gutterBottom
                 fontWeight={600}
-                textAlign={"center"}
               >
-                Let's create a new task!
+                {t("lets_create_new_task")}
               </Typography>
-              Please enter the task details below.
+              {/* {t("please_enter_task_details")} */}
             </DialogContentText>
             <Box component="form" id="subscription-form" sx={{ mt: 2 }}>
-              <label htmlFor="title">Task's Title</label>
-              <br />
+              <label
+                htmlFor="title"
+                dir="auto"
+                style={{
+                  textAlign: i18n.language === "ar" ? "right" : "left",
+                  display: "block",
+                }}
+              >
+                {t("task-title")}
+              </label>
+
               <input
                 type="text"
                 required
                 value={title}
                 onChange={titleEntry}
                 id="title"
-                style={{ marginBottom: "10px", width: "100%" }}
+                style={{
+                  marginBottom: "10px",
+                  width: "100%",
+                  textAlign: "start",
+                }}
+                dir="auto"
               ></input>
               <Stack>
-                <label htmlFor="steps">Steps</label>
+                <label
+                  htmlFor="steps"
+                  dir="auto"
+                  style={{ textAlign: "start" }}
+                >
+                  {t("steps")}
+                </label>
+
                 <input
                   id="steps"
                   type="text"
                   required
                   value={step}
                   onChange={stepsEntry}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      addStep(e);
-                    }
-                  }}
-                />
+                  dir="auto"
+                  style={{ textAlign: "start" }}
+                ></input>
                 <Button
+                  className="addStepBtn"
                   type="button"
                   sx={{ color: theme.palette.primary.contrastText }}
                   variant="contained"
                   onClick={addStep}
                 >
-                  Add Step
+                  {t("add_step")}
                 </Button>
               </Stack>
               <List
@@ -220,10 +239,15 @@ const AllTasks = () => {
                   flexWrap: "wrap",
                   maxHeight: "100px",
                   overflowY: "auto",
+                  textAlign: "start",
                 }}
               >
                 {array.map((item, index) => (
-                  <ListItem sx={{ listStyleType: "circle" }} key={index}>
+                  <ListItem
+                    sx={{ listStyleType: "circle", textAlign: "start" }}
+                    dir="auto"
+                    key={index}
+                  >
                     {item}
                   </ListItem>
                 ))}
@@ -238,7 +262,7 @@ const AllTasks = () => {
               sx={{ color: theme.palette.primary.contrastText }}
               variant="contained"
             >
-              Cancel
+              {t("cancel")}
             </Button>
             <Button
               onClick={handleSubmit}
@@ -247,7 +271,7 @@ const AllTasks = () => {
               variant="contained"
               sx={{ color: theme.palette.primary.contrastText }}
             >
-              Submit
+              {t("submit")}
             </Button>
           </DialogActions>
         </Dialog>
@@ -301,7 +325,9 @@ const AllTasks = () => {
                   margin: "2rem auto",
                   textTransform: "capitalize",
                   color: "bg.textContrast",
+                  backgroundColor: "background.paper",
                 }}
+                className="fab-animate"
               >
                 Let's Create Your First Task !
               </Button>
@@ -324,6 +350,7 @@ const AllTasks = () => {
         <Tooltip title="Add New Task" placement="left">
           <Fab
             color="secondary"
+            className="fab-animate"
             sx={{
               position: "fixed",
               bottom: "4rem",
@@ -334,7 +361,7 @@ const AllTasks = () => {
             }}
             onClick={handleClickOpen}
           >
-            <AddIcon />
+            <AddIcon sx={{ fontSize: 48 }} />
           </Fab>
         </Tooltip>
         {/* Form Dialog */}
@@ -348,23 +375,43 @@ const AllTasks = () => {
                 gutterBottom
                 fontWeight={600}
               >
-                Let's create a new task!
+                {t("lets_create_new_task")}
               </Typography>
-              Please enter the task details below.
+              {/* {t("please_enter_task_details")} */}
             </DialogContentText>
             <Box component="form" id="subscription-form" sx={{ mt: 2 }}>
-              <label htmlFor="title"> Task's Title</label>
-              <br />
+              <label
+                htmlFor="title"
+                dir="auto"
+                style={{
+                  textAlign: i18n.language === "ar" ? "right" : "left",
+                  display: "block",
+                }}
+              >
+                {t("task-title")}
+              </label>
+
               <input
                 type="text"
                 required
                 value={title}
                 onChange={titleEntry}
                 id="title"
-                style={{ marginBottom: "10px", width: "100%" }}
+                style={{
+                  marginBottom: "10px",
+                  width: "100%",
+                  textAlign: "start",
+                }}
+                dir="auto"
               ></input>
               <Stack>
-                <label htmlFor="steps">Steps</label>
+                <label
+                  htmlFor="steps"
+                  dir="auto"
+                  style={{ textAlign: "start" }}
+                >
+                  {t("steps")}
+                </label>
 
                 <input
                   id="steps"
@@ -372,6 +419,8 @@ const AllTasks = () => {
                   required
                   value={step}
                   onChange={stepsEntry}
+                  dir="auto"
+                  style={{ textAlign: "start" }}
                 ></input>
                 <Button
                   className="addStepBtn"
@@ -380,7 +429,7 @@ const AllTasks = () => {
                   variant="contained"
                   onClick={addStep}
                 >
-                  Add Step
+                  {t("add_step")}
                 </Button>
               </Stack>
               <List
@@ -390,10 +439,15 @@ const AllTasks = () => {
                   flexWrap: "wrap",
                   maxHeight: "100px",
                   overflowY: "auto",
+                  textAlign: "start",
                 }}
               >
                 {array.map((item, index) => (
-                  <ListItem sx={{ listStyleType: "circle" }} key={index}>
+                  <ListItem
+                    sx={{ listStyleType: "circle", textAlign: "start" }}
+                    dir="auto"
+                    key={index}
+                  >
                     {item}
                   </ListItem>
                 ))}
@@ -408,7 +462,7 @@ const AllTasks = () => {
               sx={{ color: theme.palette.primary.contrastText }}
               variant="contained"
             >
-              Cancel
+              {t("cancel")}
             </Button>
             <Button
               onClick={handleSubmit}
@@ -417,7 +471,7 @@ const AllTasks = () => {
               variant="contained"
               sx={{ color: theme.palette.primary.contrastText }}
             >
-              Submit
+              {t("submit")}
             </Button>
           </DialogActions>
         </Dialog>
@@ -542,7 +596,6 @@ const AllTasks = () => {
                         dir="auto"
                       >
                         {t("steps")}
-                        {""}:
                       </Typography>
                       <List sx={{ marginBottom: "50px" }}>
                         {data.details.map((step, index) => (
