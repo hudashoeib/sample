@@ -25,6 +25,7 @@ import {
 import { auth } from "../../firebase"; // Adjust the import based on your file structure
 
 import { GoogleIcon } from "./CustomIcons";
+
 // SignUp auth
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -70,6 +71,9 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function SignUp(props) {
+  const isArabic = (text) =>
+    /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/.test(text);
+
   const theme = useTheme();
   const { t } = useTranslation();
   const [emailError, setEmailError] = React.useState(false);
@@ -207,7 +211,7 @@ export default function SignUp(props) {
             sx={{ display: "flex", flexDirection: "column", gap: 2 }}
           >
             <FormControl>
-              <FormLabel htmlFor="name" dir="auto">
+              <FormLabel htmlFor="name" dir="auto" sx={{ textAlign: "start" }}>
                 {t("signup_name")}
               </FormLabel>
               <TextField
@@ -217,13 +221,18 @@ export default function SignUp(props) {
                 fullWidth
                 id="name"
                 placeholder={t("signup_name_placeholder")}
+                inputProps={{
+                  dir: isArabic(t("signup_name_placeholder")) ? "rtl" : "ltr",
+                }}
                 error={nameError}
                 helperText={nameErrorMessage}
                 color={nameError ? "error" : "primary"}
                 onChange={(e) => setName(e.target.value)}
+                dir="auto"
                 sx={{
                   "& .MuiInputBase-root": {
                     backgroundColor: theme.palette.background.paper,
+                    textAlign: "start",
                   },
                 }}
               />

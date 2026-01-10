@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
+import CheckIcon from "@mui/icons-material/Check";
 import {
   Box,
   Fab,
@@ -38,10 +39,11 @@ import Heart2 from "Styles/HeartSmall/Heart2";
 
 // Form Dialoge
 const AllTasks = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const Toolbar = require("@mui/material/Toolbar").default;
   const navigate = useNavigate();
   const theme = useTheme();
+
   // Toggle Button state
   const [alignment, setAlignment] = React.useState("web");
 
@@ -533,19 +535,50 @@ const AllTasks = () => {
                         variant="h6"
                         sx={{
                           fontWeight: "400",
-                          textDecoration: "underline",
-                          textUnderlineOffset: "6px",
+
+                          textAlign: i18n.language === "ar" ? "right" : "left",
                         }}
                         component="div"
+                        dir="auto"
                       >
-                        steps list :
+                        {t("steps")}
+                        {""}:
                       </Typography>
                       <List sx={{ marginBottom: "50px" }}>
                         {data.details.map((step, index) => (
                           <ListItem key={index}>
-                            <Typography variant="body2" color="text.secondary">
-                              {step}
-                            </Typography>
+                            {(() => {
+                              const isArabic = /[\u0600-\u06FF]/.test(step);
+                              const isChecked =
+                                Array.isArray(data.checkedSteps) &&
+                                data.checkedSteps.includes(step);
+                              return (
+                                <Typography
+                                  className="step"
+                                  variant="body2"
+                                  color="text.secondary"
+                                  sx={{
+                                    display: "flex",
+                                    textAlign: isArabic ? "right" : "left",
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    width: "100%",
+                                  }}
+                                  dir={isArabic ? "rtl" : "ltr"}
+                                >
+                                  {step}
+                                  {isChecked && (
+                                    <CheckIcon
+                                      sx={{
+                                        color: "text.secondary",
+                                        ml: 1,
+                                        fontSize: 20,
+                                      }}
+                                    />
+                                  )}
+                                </Typography>
+                              );
+                            })()}
                           </ListItem>
                         ))}
                       </List>
@@ -574,9 +607,10 @@ const AllTasks = () => {
                           color: "text.secondary",
                           fontSize: "1rem",
                           textTransform: "capitalize",
+                          textalign: "center",
                         }}
                       >
-                        Edit
+                        {t("edit")}
                       </Button>
                       <Typography
                         variant="body1"

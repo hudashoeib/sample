@@ -42,10 +42,15 @@ export default function LabelBottomNavigation() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "64px",
+        height: "35px",
       }}
     >
-      <Typography> All rights reserved &copy; HudaShoeib.</Typography>
+      <Typography
+        sx={{ fontSize: { xs: "0.8rem", md: "1rem" }, fontWeight: "500" }}
+      >
+        {" "}
+        All rights reserved &copy; HudaShoeib.
+      </Typography>
     </BottomNavigation>
   );
 }
