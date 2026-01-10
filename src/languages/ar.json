@@ -1,4 +1,9 @@
 {
+  "task_not_found": "الخطة غير موجودة",
+  "back_to_home": "العودة إلى الصفحة الرئيسية",
+  "congratulations_on_completing_your_task": "تهانينا على إكمال مهمتك!",
+  "back_to_all_tasks": "العودة إلى الصفحة الرئيسية",
+  "delete_task": "حذف الخطة",
   "please": "برجاء",
   "sign_in": "تسجيل الدخول",
   "to_continue_please": "للمتابعة برجاء",
@@ -65,5 +70,6 @@
   "submit": "إرسال",
 
   "please_enter_task_details": " :اضف التفاصيل هنا",
-  "task-title": "  عنوان المهمة :"
+  "task-title": "  عنوان المهمة :",
+  "new_step": "خطوة جديدة"
 }

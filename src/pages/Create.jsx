@@ -33,11 +33,14 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import Header from "components/Header";
 import Spinner from "Styles/Spinner";
+import { useTranslation } from "react-i18next";
+import i18n from "i18n";
 
 const Create = () => {
   const theme = useTheme();
   // List MUI - checked state synced with Firestore
   const [checked, setChecked] = React.useState([]);
+  const { t, i18n } = useTranslation();
 
   // Toggle and update Firestore
   const handleToggle = (step) => async () => {
@@ -148,7 +151,7 @@ const Create = () => {
             mt={3}
             mb={5}
           >
-            Task has been Deleted
+            {t("task_not_found")}
           </Typography>
 
           <Button
@@ -158,7 +161,7 @@ const Create = () => {
             }}
             sx={{ marginRight: "auto", marginLeft: "auto", display: "block" }}
           >
-            Back to Home
+            {t("back_to_home")}
           </Button>
         </main>
       </>
@@ -247,7 +250,7 @@ const Create = () => {
                           variant="h6"
                           sx={{ mt: 2, color: "primary.main" }}
                         >
-                          🎉 All steps completed! Great job! 🎉
+                          🎉 {t("congratulations_on_completing_your_task")} 🎉
                         </Typography>
                       ),
                     ];
@@ -267,9 +270,14 @@ const Create = () => {
                       <ListItem
                         className="step-item"
                         key={step}
+                        sx={{
+                          display: "flex",
+                          flexDirection:
+                            i18n.language === "ar" ? "row-reverse" : "row",
+                        }}
                         secondaryAction={
                           <IconButton
-                            edge="end"
+                            edge={i18n.language === "ar" ? "start" : "end"}
                             aria-label="delete"
                             onClick={() => trashIcon(step)}
                             sx={{ "&:hover": { color: "red" } }}
@@ -286,7 +294,7 @@ const Create = () => {
                         >
                           <ListItemIcon>
                             <Checkbox
-                              edge="start"
+                              edge={i18n.language === "ar" ? "end" : "start"}
                               checked={checked.includes(step)}
                               tabIndex={-1}
                               disableRipple
@@ -296,11 +304,14 @@ const Create = () => {
                           <ListItemText
                             id={labelId}
                             primary={step}
+                            dir="auto"
                             style={
                               checked.includes(step)
                                 ? {
                                     textDecoration: "line-through",
                                     color: "#888",
+                                    textAlign:
+                                      i18n.language === "ar" ? "right" : "left",
                                   }
                                 : {}
                             }
@@ -321,7 +332,14 @@ const Create = () => {
                     sx={{ width: "100%", bgcolor: "background.paper" }}
                     disablePadding
                   >
-                    <ListItemButton dense>
+                    <ListItemButton
+                      sx={{
+                        display: "flex",
+                        flexDirection:
+                          i18n.language === "ar" ? "row-reverse" : "row",
+                      }}
+                      dense
+                    >
                       <ListItemText
                         primary={
                           <Box
@@ -333,10 +351,12 @@ const Create = () => {
                             <input
                               id="new-step-input"
                               type="text"
-                              placeholder="New Step"
+                              placeholder={t("new_step")}
                               value={newstep}
                               onChange={(e) => setnewstep(e.target.value)}
+                              dir="auto"
                               style={{
+                                textAlign: "start",
                                 background: "transparent",
                                 border: "none",
                                 outline: "none",
@@ -347,29 +367,16 @@ const Create = () => {
                           </Box>
                         }
                       />
-                      {/* <Button
-                        variant="contained"
-                        onClick={addNewStep}
-                        sx={{
-                          ml: 2,
-                          width: { xs: "60px", md: "80px" },
-                          padding: "0px",
-                        }}
-                      >
-                        <Check />
-                      </Button> */}
+
                       <Check
                         onClick={addNewStep}
-                        sx={{ marginRight: "20px" }}
+                        sx={{
+                          marginRight: "20px",
+                          cursor: "pointer",
+                          marginLeft: "20px",
+                        }}
                       />
                       <Close onClick={() => setNewStepDialogue(false)} />
-                      {/* <Button
-                        variant="outlined"
-                        onClick={() => setNewStepDialogue(false)}
-                        sx={{ ml: 1, width: { xs: "60px", md: "80px" } }}
-                      >
-                        <Close />
-                      </Button> */}
                     </ListItemButton>
                   </ListItem>
                 )}
@@ -396,7 +403,7 @@ const Create = () => {
                 onClick={() => setNewStepDialogue(true)}
                 sx={{ marginBottom: 2, width: "200px" }}
               >
-                Add Step
+                {t("add_step")}
               </Button>
               <Button
                 variant="contained"
@@ -405,7 +412,7 @@ const Create = () => {
                 }}
                 sx={{ marginBottom: 2, width: "200px" }}
               >
-                Back to Home
+                {t("back_to_all_tasks")}
               </Button>
               <Button
                 variant="contained"
@@ -413,7 +420,7 @@ const Create = () => {
                 sx={{ marginTop: 2 }}
                 onClick={delAllTask}
               >
-                Delete Task
+                {t("delete_task")}
               </Button>
             </Grid>
 

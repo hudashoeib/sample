@@ -1,4 +1,9 @@
 {
+  "task_not_found": "Task not found",
+  "back_to_home": "Back to Home",
+  "congratulations_on_completing_your_task": "Congratulations on completing your task!",
+  "back_to_all_tasks": "Back to Home",
+  "delete_task": "Delete Task",
   "please": "Please",
   "sign_in": "Sign In",
   "to_continue_please": "To continue, please",
@@ -63,5 +68,6 @@
   "add_step": "Add Step",
   "cancel": "Cancel",
   "submit": "Submit",
-  "task-title": "Task Title"
+  "task-title": "Task Title",
+  "new_step": "New Step"
 }
