@@ -1,4 +1,4 @@
-import { Box, Grid, Toolbar, Typography, useTheme } from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -26,7 +26,7 @@ const Home = () => {
         sx={{ backgroundColor: theme.palette.bg.main }}
       >
         <Box component="main" className="container">
-          <Toolbar />
+          {/* <Toolbar /> */}
           <Box>
             {loading ? (
               <div
@@ -70,7 +70,7 @@ const Home = () => {
                   <Typography
                     textAlign="center"
                     sx={{
-                      fontSize: { xs: "1.5rem", sm: "2.5rem", md: "2.5rem" },
+                      fontSize: { xs: "1.3rem", sm: "2.3rem", md: "2.3rem" },
                     }}
                     color="bg.textContrast"
                   >
@@ -81,12 +81,56 @@ const Home = () => {
                     margin="2rem auto"
                     sx={{ display: "flex", justifyContent: "center" }}
                   >
-                    <img
-                      src="/plans.jpg"
-                      alt="plans illustration"
-                      loading="lazy"
-                      height={"200px"}
-                    />
+                    <Box
+                      sx={{
+                        position: "relative",
+                        display: "inline-block",
+                        width: "100%",
+                        maxWidth: "100%",
+                        borderRadius: "12px",
+                        overflow: "hidden",
+                        boxShadow:
+                          theme.palette.mode === "dark"
+                            ? "0 2px 8px rgba(54, 25, 25, 0.87)"
+                            : "0 2px 8px rgba(0,0,0,0.1)",
+                      }}
+                    >
+                      <img
+                        className="img-task"
+                        src="/plans.jpg"
+                        alt="plans illustration"
+                        loading="lazy"
+                        height={"200px"}
+                        style={{
+                          borderRadius: "12px",
+                          width: "100%",
+                          objectFit: "cover",
+                          pointerEvents: "none",
+                          display: "block",
+                        }}
+                      />
+                      {/* image overlay */}
+                      <Box
+                        className="image-overlay"
+                        sx={{
+                          pointerEvents: "none",
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          width: "100%",
+                          height: "100%",
+                          borderRadius: "12px",
+                          background:
+                            theme.palette.mode === "dark"
+                              ? "linear-gradient(135deg, rgba(216, 210, 140, 0.7) 0%, rgba(60,60,60,0.3) 100%)"
+                              : "linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(200,200,200,0.2) 100%)",
+                          boxShadow:
+                            theme.palette.mode === "dark"
+                              ? "0 2px 8px rgba(54, 25, 25, 0.87)"
+                              : "0 2px 8px rgba(0,0,0,0.1)",
+                        }}
+                      />
+                    </Box>
                   </Grid>
 
                   <Grid

@@ -34,7 +34,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import Header from "components/Header";
 import Spinner from "Styles/Spinner";
 import { useTranslation } from "react-i18next";
-import i18n from "i18n";
 
 const Create = () => {
   const theme = useTheme();
@@ -261,7 +260,12 @@ const Create = () => {
             {/*  End of Progress Section   */}
             {/* List Section */}
             <Grid size={{ xs: 10, md: 10 }} mt={4} className="list-section ">
-              <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+              <List
+                sx={{
+                  width: "100%",
+                  bgcolor: "background.paper",
+                }}
+              >
                 {data.details.map((step, index) => {
                   const labelId = `checkbox-list-label-${step}`;
 
@@ -275,24 +279,28 @@ const Create = () => {
                           flexDirection:
                             i18n.language === "ar" ? "row-reverse" : "row",
                         }}
-                        secondaryAction={
-                          <IconButton
-                            edge={i18n.language === "ar" ? "start" : "end"}
-                            aria-label="delete"
-                            onClick={() => trashIcon(step)}
-                            sx={{ "&:hover": { color: "red" } }}
-                          >
-                            <Delete />
-                          </IconButton>
-                        }
                         disablePadding
                       >
+                        {/* Btn of check */}
                         <ListItemButton
                           role={undefined}
                           onClick={handleToggle(step)}
                           dense
+                          sx={{
+                            display: "block",
+                            textAlign:
+                              i18n.language === "ar" ? "right" : "left",
+                            width: "fit-content",
+                            flexGrow: 0,
+                            padding: "4px 8px",
+                          }}
                         >
-                          <ListItemIcon>
+                          <ListItemIcon
+                            sx={{
+                              width: "fit-content",
+                              minWidth: { xs: "33px", sm: "50px" },
+                            }}
+                          >
                             <Checkbox
                               edge={i18n.language === "ar" ? "end" : "start"}
                               checked={checked.includes(step)}
@@ -301,26 +309,45 @@ const Create = () => {
                               onChange={handleToggle(step)}
                             />
                           </ListItemIcon>
-                          <ListItemText
-                            id={labelId}
-                            primary={step}
-                            dir="auto"
-                            style={
-                              checked.includes(step)
-                                ? {
-                                    textDecoration: "line-through",
-                                    color: "#888",
-                                    textAlign:
-                                      i18n.language === "ar" ? "right" : "left",
-                                  }
-                                : {}
-                            }
-                            primaryTypographyProps={{
-                              fontSize: { xs: "16px", md: "24px" },
-                            }}
-                          />
                         </ListItemButton>
+                        {/* step name */}
+                        <ListItemText
+                          id={labelId}
+                          primary={step}
+                          dir="auto"
+                          style={
+                            checked.includes(step)
+                              ? {
+                                  display: "block",
+                                  textDecoration: "line-through",
+                                  color: "#888",
+                                  textAlign:
+                                    i18n.language === "ar" ? "right" : "left",
+                                }
+                              : {
+                                  textAlign:
+                                    i18n.language === "ar" ? "right" : "left",
+                                  display: "block",
+                                }
+                          }
+                          primaryTypographyProps={{
+                            fontSize: { xs: "16px", md: "24px" },
+                          }}
+                        />
+                        {/* Delette btn */}
+                        <IconButton
+                          edge={i18n.language === "ar" ? "start" : "end"}
+                          aria-label="delete"
+                          onClick={() => trashIcon(step)}
+                          sx={{
+                            "&:hover": { color: "red" },
+                            padding: { xs: "4px 16px", sm: "8px 24px" },
+                          }}
+                        >
+                          <Delete />
+                        </IconButton>
                       </ListItem>
+
                       <Divider component="li" />
                     </>
                   );
@@ -356,12 +383,13 @@ const Create = () => {
                               onChange={(e) => setnewstep(e.target.value)}
                               dir="auto"
                               style={{
-                                textAlign: "start",
+                                textAlign:
+                                  i18n.language === "ar" ? "right" : "start",
                                 background: "transparent",
                                 border: "none",
                                 outline: "none",
                                 color: theme.palette.text.primary,
-                                width: "80%",
+                                width: "97%",
                               }}
                             />
                           </Box>

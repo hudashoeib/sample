@@ -265,7 +265,12 @@ function DrawerAppBar(props) {
         }}
       >
         <Toolbar
-          sx={{ flexDirection: i18n.language === "ar" ? "row-reverse" : "row" }}
+          sx={{
+            flexDirection: {
+              xs: i18n.language === "ar" ? "row-reverse" : "row",
+              sm: "row",
+            },
+          }}
         >
           <IconButton
             color="inherit"

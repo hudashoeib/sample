@@ -281,6 +281,7 @@ const AllTasks = () => {
             <Typography
               textAlign="center"
               sx={{
+                marginTop: "1rem",
                 marginBottom: "1rem",
                 fontSize: { xs: "1.5rem", md: "1.8rem" },
               }}
@@ -290,7 +291,7 @@ const AllTasks = () => {
             </Typography>
             <Typography
               textAlign="center"
-              sx={{ fontSize: { xs: "1.5rem", md: "1.8rem" } }}
+              sx={{ fontSize: { xs: "1.3rem", md: "1.8rem" } }}
               color="bg.textContrast"
             >
               Let's make Life Easier!
@@ -300,12 +301,48 @@ const AllTasks = () => {
               margin="2rem auto"
               sx={{ display: "flex", justifyContent: "center" }}
             >
-              <img
-                src="/plans.jpg"
-                alt="plans illustration"
-                loading="lazy"
-                height={"200px"}
-              />
+              <Box
+                sx={{
+                  position: "relative",
+                  display: "inline-block",
+                  width: "100%",
+                  maxWidth: "100%",
+                  borderRadius: "12px",
+                  overflow: "hidden",
+                }}
+              >
+                <img
+                  className="img-task"
+                  src="/plans.jpg"
+                  alt="plans illustration"
+                  loading="lazy"
+                  height={"200px"}
+                  style={{
+                    borderRadius: "12px",
+                    width: "100%",
+
+                    pointerEvents: "none",
+                    display: "block",
+                  }}
+                />
+                {/* image overlay */}
+                <Box
+                  className="image-overlay"
+                  sx={{
+                    pointerEvents: "none",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "12px",
+                    background:
+                      theme.palette.mode === "dark"
+                        ? "linear-gradient(135deg, rgba(216, 210, 140, 0.7) 0%, rgba(60,60,60,0.3) 100%)"
+                        : "linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(200,200,200,0.2) 100%)",
+                  }}
+                />
+              </Box>
             </Grid>
 
             <Grid size={8} alignContent="center" margin="2rem auto">
