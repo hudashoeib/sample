@@ -69,5 +69,7 @@
   "cancel": "Cancel",
   "submit": "Submit",
   "task-title": "Task Title",
-  "new_step": "New Step"
+  "new_step": "New Step",
+  "welcome": "Welcome ,",
+  "Create_your_first_task": "Create your first task"
 }

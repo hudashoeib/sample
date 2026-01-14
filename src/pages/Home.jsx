@@ -97,7 +97,7 @@ const Home = () => {
                     >
                       <img
                         className="img-task"
-                        src="/plans.jpg"
+                        src="/plans.png"
                         alt="plans illustration"
                         loading="lazy"
                         height={"200px"}

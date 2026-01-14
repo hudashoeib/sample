@@ -279,15 +279,31 @@ const AllTasks = () => {
         <Grid container justifyContent="center" alignItems="center">
           <Grid size={10} textAlign="center" className="no-tasks-message">
             <Typography
-              textAlign="center"
+              textAlign={"center"}
               sx={{
-                marginTop: "1rem",
-                marginBottom: "1rem",
-                fontSize: { xs: "1.5rem", md: "1.8rem" },
+                fontSize: { xs: "1.3rem", md: "1.8rem" },
+                fontWeight: 600,
+                mr: 1,
+                ml: 1,
+                mt: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: i18n.language === "ar" ? "row-reverse" : "row",
               }}
-              color="bg.textContrast"
+              color="primary"
             >
-              Welcome, {user.displayName || user.email}
+              <span
+                dir="auto"
+                style={{ marginRight: "5px", marginLeft: "5px" }}
+              >
+                {" "}
+                {t("welcome")}
+              </span>
+              <span dir="auto"> {user.displayName || user.email}</span>
+              <span style={{ marginRight: "8px", marginLeft: "8px" }}>
+                <Heart2 />
+              </span>
             </Typography>
             <Typography
               textAlign="center"
@@ -298,7 +314,7 @@ const AllTasks = () => {
             </Typography>
             <Grid
               size={8}
-              margin="2rem auto"
+              margin="1rem auto"
               sx={{ display: "flex", justifyContent: "center" }}
             >
               <Box
@@ -313,7 +329,7 @@ const AllTasks = () => {
               >
                 <img
                   className="img-task"
-                  src="/plans.jpg"
+                  src="/plans.png"
                   alt="plans illustration"
                   loading="lazy"
                   height={"200px"}
@@ -345,7 +361,7 @@ const AllTasks = () => {
               </Box>
             </Grid>
 
-            <Grid size={8} alignContent="center" margin="2rem auto">
+            <Grid size={8} alignContent="center" margin="1rem auto">
               <Button
                 variant="outlined"
                 onClick={handleClickOpen}
@@ -359,14 +375,14 @@ const AllTasks = () => {
                   },
                   fontWeight: 600,
                   display: "block",
-                  margin: "2rem auto",
+                  margin: "1rem auto",
                   textTransform: "capitalize",
                   color: "bg.textContrast",
                   backgroundColor: "background.paper",
                 }}
                 className="fab-animate"
               >
-                Let's Create Your First Task !
+                {t("Create_your_first_task")}
               </Button>
             </Grid>
           </Grid>
@@ -537,12 +553,25 @@ const AllTasks = () => {
                 fontWeight: 600,
                 mr: 1,
                 ml: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: i18n.language === "ar" ? "row-reverse" : "row",
               }}
               color="primary"
             >
-              Welcome, {user.displayName || user.email}
+              <span
+                dir="auto"
+                style={{ marginRight: "5px", marginLeft: "5px" }}
+              >
+                {" "}
+                {t("welcome")}
+              </span>
+              <span dir="auto"> {user.displayName || user.email}</span>
+              <span style={{ marginRight: "8px", marginLeft: "8px" }}>
+                <Heart2 />
+              </span>
             </Typography>
-            <Heart2 />
           </Grid>
           {/* <Grid size={{ xs: 10, md: 12 }} className="all-Tasks-subtitle">
             <Typography dir="auto" variant="body1" color="initial">
@@ -692,10 +721,9 @@ const AllTasks = () => {
                         variant="outlined"
                         size="small"
                         sx={{
-                          justifyContent: "flex-start",
                           fontWeight: 600,
                           color: "text.secondary",
-                          fontSize: "1rem",
+                          fontSize: { xs: "0.9rem", sm: "0.8rem", md: "1rem" },
                           textTransform: "capitalize",
                           textalign: "center",
                         }}

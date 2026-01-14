@@ -65,11 +65,13 @@
   "steps": "  الخطوات :",
   "add_step": "إضافة خطوة",
   "lets_create_new_task": "خطة جديده ليوم جديد",
+  "Create_your_first_task": "ابدأ مهمتك الأولى",
 
   "cancel": "إلغاء",
   "submit": "تأكيد",
 
   "please_enter_task_details": " :اضف التفاصيل هنا",
   "task-title": "  عنوان المهمة :",
-  "new_step": "خطوة جديدة"
+  "new_step": "خطوة جديدة",
+  "welcome": " مرحباً ..."
 }
