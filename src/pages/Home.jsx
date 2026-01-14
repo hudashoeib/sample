@@ -73,6 +73,7 @@ const Home = () => {
                       fontSize: { xs: "1.3rem", sm: "2.3rem", md: "2.3rem" },
                     }}
                     color="bg.textContrast"
+                    mt={{ xs: 1, sm: 2, md: 3 }}
                   >
                     Let's make Life Easier!
                   </Typography>
@@ -104,7 +105,7 @@ const Home = () => {
                         style={{
                           borderRadius: "12px",
                           width: "100%",
-                          objectFit: "cover",
+
                           pointerEvents: "none",
                           display: "block",
                         }}
@@ -136,7 +137,9 @@ const Home = () => {
                   <Grid
                     size={11}
                     alignContent="center"
-                    margin="2rem auto"
+                    margin={{
+                      xs: "5rem auto",
+                    }}
                     sx={{
                       display: "flex",
                       justifyContent: "center",
@@ -158,7 +161,9 @@ const Home = () => {
                     >
                       {t("to_continue_please")}
                     </Typography>
-                    <Link to="/signin">{t("sign_in")}</Link>
+                    <Link style={{ textDecoration: "none" }} to="/signin">
+                      {t("sign_in")}
+                    </Link>
                     {/* <Typography
                       dir="auto"
                       textAlign="center"

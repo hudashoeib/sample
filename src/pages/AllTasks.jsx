@@ -143,7 +143,7 @@ const AllTasks = () => {
       <Box
         className="all-Tasks-parent"
         // @ts-ignore
-        sx={{ backgroundColor: theme.palette.bg.main, minHeight: "100dvh" }}
+        sx={{ backgroundColor: theme.palette.bg.main, minHeight: "100vh" }}
       >
         {/* <Toolbar /> */}
         {/* Fab FORM */}
@@ -285,7 +285,7 @@ const AllTasks = () => {
                 fontWeight: 600,
                 mr: 1,
                 ml: 1,
-                mt: 1,
+                mt: { xs: 1, sm: 2, md: 3 },
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -314,7 +314,7 @@ const AllTasks = () => {
             </Typography>
             <Grid
               size={8}
-              margin="1rem auto"
+              margin={{ xs: "1rem auto", sm: "2rem auto", md: "3rem auto" }}
               sx={{ display: "flex", justifyContent: "center" }}
             >
               <Box
@@ -375,12 +375,12 @@ const AllTasks = () => {
                   },
                   fontWeight: 600,
                   display: "block",
-                  margin: "1rem auto",
+                  margin: { xs: "1rem auto", sm: "2rem auto", md: "3rem auto" },
                   textTransform: "capitalize",
                   color: "bg.textContrast",
                   backgroundColor: "background.paper",
                 }}
-                className="fab-animate"
+                className="fab-animate create-first-task-btn"
               >
                 {t("Create_your_first_task")}
               </Button>
