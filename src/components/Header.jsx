@@ -171,7 +171,7 @@ function DrawerAppBar(props) {
   const drawer = (
     <Box
       onClick={handleDrawerToggle}
-      sx={{ backgroundColor: "background.paper" }}
+      sx={{ backgroundColor: "background.paper", height: "100%" }}
     >
       <Typography
         sx={{ textAlign: "center", my: 2, fontWeight: "900", fontSize: "24px" }}
@@ -254,7 +254,7 @@ function DrawerAppBar(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", backgroundColor: "background.paper" }}>
       <CssBaseline />
       <AppBar
         component="nav"
@@ -270,6 +270,7 @@ function DrawerAppBar(props) {
               xs: i18n.language === "ar" ? "row-reverse" : "row",
               sm: "row",
             },
+            backgroundColor: "background.paper",
           }}
         >
           <IconButton
@@ -419,6 +420,7 @@ function DrawerAppBar(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+              backgroundColor: "background.paper",
             },
           }}
         >

@@ -281,11 +281,11 @@ const AllTasks = () => {
             <Typography
               textAlign={"center"}
               sx={{
-                fontSize: { xs: "1.3rem", md: "1.8rem" },
+                fontSize: { xs: "1.2rem", md: "1.8rem" },
                 fontWeight: 600,
                 mr: 1,
                 ml: 1,
-                mt: { xs: 1, sm: 2, md: 3 },
+                mt: { xs: 2, sm: 3, md: 3 },
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -295,7 +295,7 @@ const AllTasks = () => {
             >
               <span
                 dir="auto"
-                style={{ marginRight: "5px", marginLeft: "5px" }}
+                style={{ marginRight: "4px", marginLeft: "4px" }}
               >
                 {" "}
                 {t("welcome")}
@@ -362,28 +362,36 @@ const AllTasks = () => {
             </Grid>
 
             <Grid size={8} alignContent="center" margin="1rem auto">
-              <Button
-                variant="outlined"
-                onClick={handleClickOpen}
-                size="large"
+              <Box
                 sx={{
-                  fontSize: {
-                    xs: "0.8rem",
-
-                    md: "1rem",
-                    lg: "1.5rem",
-                  },
-                  fontWeight: 600,
-                  display: "block",
-                  margin: { xs: "1rem auto", sm: "2rem auto", md: "3rem auto" },
-                  textTransform: "capitalize",
-                  color: "bg.textContrast",
-                  backgroundColor: "background.paper",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
+                  minHeight: 200,
+                  width: "100%",
                 }}
-                className="fab-animate create-first-task-btn"
               >
-                {t("Create_your_first_task")}
-              </Button>
+                <Button
+                  variant="outlined"
+                  onClick={handleClickOpen}
+                  size="large"
+                  sx={{
+                    fontSize: {
+                      xs: "0.8rem",
+                      md: "1rem",
+                      lg: "1.5rem",
+                    },
+                    fontWeight: 600,
+                    textTransform: "capitalize",
+                    color: "bg.textContrast",
+                    backgroundColor: "background.paper",
+                  }}
+                  className="fab-animate create-first-task-btn"
+                >
+                  {t("Create_your_first_task")}
+                </Button>
+              </Box>
             </Grid>
           </Grid>
         </Grid>
@@ -549,7 +557,7 @@ const AllTasks = () => {
             <Typography
               textAlign={"center"}
               sx={{
-                fontSize: { xs: "1.3rem", md: "1.8rem" },
+                fontSize: { xs: "1.1rem", md: "1.8rem" },
                 fontWeight: 600,
                 mr: 1,
                 ml: 1,
@@ -562,23 +570,17 @@ const AllTasks = () => {
             >
               <span
                 dir="auto"
-                style={{ marginRight: "5px", marginLeft: "5px" }}
+                style={{ marginRight: "4px", marginLeft: "4px" }}
               >
-                {" "}
                 {t("welcome")}
               </span>
               <span dir="auto"> {user.displayName || user.email}</span>
-              <span style={{ marginRight: "8px", marginLeft: "8px" }}>
+              <span style={{ marginRight: "6px", marginLeft: "6px" }}>
                 <Heart2 />
               </span>
             </Typography>
           </Grid>
-          {/* <Grid size={{ xs: 10, md: 12 }} className="all-Tasks-subtitle">
-            <Typography dir="auto" variant="body1" color="initial">
-              My Tasks :
-            </Typography>
-          </Grid> */}
-          {/* options button section */}
+
           <Grid size={6} className="all-Tasks-options  " textAlign={"center"}>
             <ToggleButtonGroup
               className="border"
@@ -594,7 +596,12 @@ const AllTasks = () => {
               <ToggleButton
                 onClick={descBtn}
                 // @ts-ignore
-                sx={{ width: "50%", color: theme.palette.button.textColor }}
+                sx={{
+                  width: "50%",
+                  // @ts-ignore
+                  color: theme.palette.button.textColor,
+                  textTransform: "capitalize",
+                }}
                 size="large"
                 value="newest"
               >
@@ -606,6 +613,7 @@ const AllTasks = () => {
                   width: "50%",
                   // @ts-ignore
                   color: theme.palette.button.textColor,
+                  textTransform: "capitalize",
                 }}
                 size="large"
                 value="oldest"

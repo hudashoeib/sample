@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Spinner from "Styles/Spinner";
 
 const ProtectedRoute = ({ children }) => {
   const [user, loading] = useAuthState(auth);
@@ -24,7 +25,18 @@ const ProtectedRoute = ({ children }) => {
     return (
       <div>
         <Header />
-        <main>Loading........</main>
+        <main
+          className="loading-parent"
+          style={{
+            height: "100vh",
+            width: "100vw",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Spinner />
+        </main>
         <Footer />
       </div>
     );
